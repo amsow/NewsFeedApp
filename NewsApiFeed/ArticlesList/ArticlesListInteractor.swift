@@ -1,5 +1,5 @@
 //
-//  RootInteractor.swift
+//  ArticlesListInteractor.swift
 //  NewsApiFeed
 //
 //  Created by Amadou Diarra SOW on 23/10/2021.
@@ -8,29 +8,27 @@
 import RIBs
 import RxSwift
 
-protocol RootRouting: ViewableRouting {
+protocol ArticlesListRouting: ViewableRouting {
     // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
-    func routeToArticlesList()
-    func routeToArticlesPaging()
 }
 
-protocol RootPresentable: Presentable {
-    var listener: RootPresentableListener? { get set }
+protocol ArticlesListPresentable: Presentable {
+    var listener: ArticlesListPresentableListener? { get set }
     // TODO: Declare methods the interactor can invoke the presenter to present data.
 }
 
-protocol RootListener: AnyObject {
+protocol ArticlesListListener: AnyObject {
     // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
 }
 
-final class RootInteractor: PresentableInteractor<RootPresentable>, RootInteractable, RootPresentableListener {
+final class ArticlesListInteractor: PresentableInteractor<ArticlesListPresentable>, ArticlesListInteractable, ArticlesListPresentableListener {
 
-    weak var router: RootRouting?
-    weak var listener: RootListener?
+    weak var router: ArticlesListRouting?
+    weak var listener: ArticlesListListener?
 
     // TODO: Add additional dependencies to constructor. Do not perform any logic
     // in constructor.
-    override init(presenter: RootPresentable) {
+    override init(presenter: ArticlesListPresentable) {
         super.init(presenter: presenter)
         presenter.listener = self
     }

@@ -17,6 +17,14 @@
 		2844E43427244B1C005FC882 /* RootBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E43027244B1C005FC882 /* RootBuilder.swift */; };
 		2844E43527244B1C005FC882 /* RootInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E43127244B1C005FC882 /* RootInteractor.swift */; };
 		2844E43F27246A28005FC882 /* AppComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E43E27246A28005FC882 /* AppComponent.swift */; };
+		2844E47D27249EE1005FC882 /* ArticlesListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E47927249EE1005FC882 /* ArticlesListRouter.swift */; };
+		2844E47E27249EE1005FC882 /* ArticlesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E47A27249EE1005FC882 /* ArticlesListViewController.swift */; };
+		2844E47F27249EE1005FC882 /* ArticlesListBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E47B27249EE1005FC882 /* ArticlesListBuilder.swift */; };
+		2844E48027249EE1005FC882 /* ArticlesListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E47C27249EE1005FC882 /* ArticlesListInteractor.swift */; };
+		2844E48927249F63005FC882 /* ArticlesPagingRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E48527249F63005FC882 /* ArticlesPagingRouter.swift */; };
+		2844E48A27249F63005FC882 /* ArticlesPagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E48627249F63005FC882 /* ArticlesPagingViewController.swift */; };
+		2844E48B27249F63005FC882 /* ArticlesPagingBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E48727249F63005FC882 /* ArticlesPagingBuilder.swift */; };
+		2844E48C27249F63005FC882 /* ArticlesPagingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E48827249F63005FC882 /* ArticlesPagingInteractor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +38,14 @@
 		2844E43027244B1C005FC882 /* RootBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootBuilder.swift; sourceTree = "<group>"; };
 		2844E43127244B1C005FC882 /* RootInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootInteractor.swift; sourceTree = "<group>"; };
 		2844E43E27246A28005FC882 /* AppComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppComponent.swift; sourceTree = "<group>"; };
+		2844E47927249EE1005FC882 /* ArticlesListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesListRouter.swift; sourceTree = "<group>"; };
+		2844E47A27249EE1005FC882 /* ArticlesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesListViewController.swift; sourceTree = "<group>"; };
+		2844E47B27249EE1005FC882 /* ArticlesListBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesListBuilder.swift; sourceTree = "<group>"; };
+		2844E47C27249EE1005FC882 /* ArticlesListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesListInteractor.swift; sourceTree = "<group>"; };
+		2844E48527249F63005FC882 /* ArticlesPagingRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesPagingRouter.swift; sourceTree = "<group>"; };
+		2844E48627249F63005FC882 /* ArticlesPagingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesPagingViewController.swift; sourceTree = "<group>"; };
+		2844E48727249F63005FC882 /* ArticlesPagingBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesPagingBuilder.swift; sourceTree = "<group>"; };
+		2844E48827249F63005FC882 /* ArticlesPagingInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesPagingInteractor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +85,8 @@
 				2844E40E2722E9D9005FC882 /* LaunchScreen.storyboard */,
 				2844E4112722E9D9005FC882 /* Info.plist */,
 				2844E43C2724693B005FC882 /* Root */,
+				2844E48227249EFD005FC882 /* ArticlesList */,
+				2844E48427249F17005FC882 /* ArticlesPaging */,
 			);
 			path = NewsApiFeed;
 			sourceTree = "<group>";
@@ -99,6 +117,28 @@
 				2844E43127244B1C005FC882 /* RootInteractor.swift */,
 			);
 			path = Root;
+			sourceTree = "<group>";
+		};
+		2844E48227249EFD005FC882 /* ArticlesList */ = {
+			isa = PBXGroup;
+			children = (
+				2844E47927249EE1005FC882 /* ArticlesListRouter.swift */,
+				2844E47A27249EE1005FC882 /* ArticlesListViewController.swift */,
+				2844E47B27249EE1005FC882 /* ArticlesListBuilder.swift */,
+				2844E47C27249EE1005FC882 /* ArticlesListInteractor.swift */,
+			);
+			path = ArticlesList;
+			sourceTree = "<group>";
+		};
+		2844E48427249F17005FC882 /* ArticlesPaging */ = {
+			isa = PBXGroup;
+			children = (
+				2844E48527249F63005FC882 /* ArticlesPagingRouter.swift */,
+				2844E48627249F63005FC882 /* ArticlesPagingViewController.swift */,
+				2844E48727249F63005FC882 /* ArticlesPagingBuilder.swift */,
+				2844E48827249F63005FC882 /* ArticlesPagingInteractor.swift */,
+			);
+			path = ArticlesPaging;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -178,12 +218,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2844E48B27249F63005FC882 /* ArticlesPagingBuilder.swift in Sources */,
 				2844E43527244B1C005FC882 /* RootInteractor.swift in Sources */,
+				2844E48027249EE1005FC882 /* ArticlesListInteractor.swift in Sources */,
 				2844E43227244B1C005FC882 /* RootRouter.swift in Sources */,
+				2844E47F27249EE1005FC882 /* ArticlesListBuilder.swift in Sources */,
+				2844E48C27249F63005FC882 /* ArticlesPagingInteractor.swift in Sources */,
+				2844E47E27249EE1005FC882 /* ArticlesListViewController.swift in Sources */,
+				2844E47D27249EE1005FC882 /* ArticlesListRouter.swift in Sources */,
 				2844E43427244B1C005FC882 /* RootBuilder.swift in Sources */,
 				2844E43327244B1C005FC882 /* RootViewController.swift in Sources */,
 				2844E4042722E9D5005FC882 /* AppDelegate.swift in Sources */,
+				2844E48A27249F63005FC882 /* ArticlesPagingViewController.swift in Sources */,
 				2844E43F27246A28005FC882 /* AppComponent.swift in Sources */,
+				2844E48927249F63005FC882 /* ArticlesPagingRouter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
