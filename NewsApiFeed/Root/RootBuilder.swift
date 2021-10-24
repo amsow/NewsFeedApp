@@ -6,6 +6,7 @@
 //
 
 import RIBs
+import UIKit
 
 protocol RootDependency: Dependency {
     // TODO: Declare the set of dependencies required by this RIB, but cannot be
@@ -15,15 +16,15 @@ protocol RootDependency: Dependency {
 final class RootComponent: Component<RootDependency> {
      
     let rootViewController: RootViewController
-    let articlesListController: ArticlesListViewController
-    let articlesPageController: ArticlesPagingViewController
+    let articleListViewController: ArticlesListViewControllable
+    let articlesPageController: ArticlesPagingViewControllable
     
      init(dependency: RootDependency,
           rootViewController: RootViewController,
-          articlesListController: ArticlesListViewController,
-          articlesPageController: ArticlesPagingViewController) {
+          articlesListController: ArticlesListViewControllable,
+          articlesPageController: ArticlesPagingViewControllable) {
         self.rootViewController = rootViewController
-        self.articlesListController = articlesListController
+        self.articleListViewController = articlesListController
         self.articlesPageController = articlesPageController
         super.init(dependency: dependency)
     }
@@ -50,8 +51,8 @@ final class RootBuilder: Builder<RootDependency>, RootBuildable {
                                       rootViewController: tabBarController,
                                       articlesListController: articlesListController,
                                       articlesPageController: articlesPageController)
-        
-        tabBarController.viewControllers = [articlesListController, articlesPageController]
+        let articlesListNavController = UINavigationController(rootViewController: articlesListController)
+        tabBarController.viewControllers = [articlesListNavController, articlesPageController]
         let interactor = RootInteractor(presenter: tabBarController)
         let articlesListBuilder = ArticlesListBuilder(dependency: component)
         let articlesPagingBuilder = ArticlesPagingBuilder(dependency: component)
