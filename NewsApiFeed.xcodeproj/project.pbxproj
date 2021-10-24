@@ -25,6 +25,8 @@
 		2844E48A27249F63005FC882 /* ArticlesPagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E48627249F63005FC882 /* ArticlesPagingViewController.swift */; };
 		2844E48B27249F63005FC882 /* ArticlesPagingBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E48727249F63005FC882 /* ArticlesPagingBuilder.swift */; };
 		2844E48C27249F63005FC882 /* ArticlesPagingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E48827249F63005FC882 /* ArticlesPagingInteractor.swift */; };
+		2844E48F2724CCE0005FC882 /* RootComponent+ArticlesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E48E2724CCE0005FC882 /* RootComponent+ArticlesList.swift */; };
+		2844E4922724CD04005FC882 /* RootComponent+ArticlesPaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E4912724CD04005FC882 /* RootComponent+ArticlesPaging.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +48,8 @@
 		2844E48627249F63005FC882 /* ArticlesPagingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesPagingViewController.swift; sourceTree = "<group>"; };
 		2844E48727249F63005FC882 /* ArticlesPagingBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesPagingBuilder.swift; sourceTree = "<group>"; };
 		2844E48827249F63005FC882 /* ArticlesPagingInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesPagingInteractor.swift; sourceTree = "<group>"; };
+		2844E48E2724CCE0005FC882 /* RootComponent+ArticlesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootComponent+ArticlesList.swift"; sourceTree = "<group>"; };
+		2844E4912724CD04005FC882 /* RootComponent+ArticlesPaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootComponent+ArticlesPaging.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +119,8 @@
 				2844E42F27244B1C005FC882 /* RootViewController.swift */,
 				2844E43027244B1C005FC882 /* RootBuilder.swift */,
 				2844E43127244B1C005FC882 /* RootInteractor.swift */,
+				2844E48E2724CCE0005FC882 /* RootComponent+ArticlesList.swift */,
+				2844E4912724CD04005FC882 /* RootComponent+ArticlesPaging.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";
@@ -221,6 +227,7 @@
 				2844E48B27249F63005FC882 /* ArticlesPagingBuilder.swift in Sources */,
 				2844E43527244B1C005FC882 /* RootInteractor.swift in Sources */,
 				2844E48027249EE1005FC882 /* ArticlesListInteractor.swift in Sources */,
+				2844E48F2724CCE0005FC882 /* RootComponent+ArticlesList.swift in Sources */,
 				2844E43227244B1C005FC882 /* RootRouter.swift in Sources */,
 				2844E47F27249EE1005FC882 /* ArticlesListBuilder.swift in Sources */,
 				2844E48C27249F63005FC882 /* ArticlesPagingInteractor.swift in Sources */,
@@ -229,6 +236,7 @@
 				2844E43427244B1C005FC882 /* RootBuilder.swift in Sources */,
 				2844E43327244B1C005FC882 /* RootViewController.swift in Sources */,
 				2844E4042722E9D5005FC882 /* AppDelegate.swift in Sources */,
+				2844E4922724CD04005FC882 /* RootComponent+ArticlesPaging.swift in Sources */,
 				2844E48A27249F63005FC882 /* ArticlesPagingViewController.swift in Sources */,
 				2844E43F27246A28005FC882 /* AppComponent.swift in Sources */,
 				2844E48927249F63005FC882 /* ArticlesPagingRouter.swift in Sources */,

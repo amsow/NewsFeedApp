@@ -8,8 +8,7 @@
 import RIBs
 
 protocol ArticlesListDependency: Dependency {
-    // TODO: Declare the set of dependencies required by this RIB, but cannot be
-    // created by this RIB.
+    
 }
 
 final class ArticlesListComponent: Component<ArticlesListDependency> {

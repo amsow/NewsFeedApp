@@ -18,4 +18,25 @@ protocol ArticlesListPresentableListener: AnyObject {
 final class ArticlesListViewController: UIViewController, ArticlesListPresentable, ArticlesListViewControllable {
 
     weak var listener: ArticlesListPresentableListener?
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - VC Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = "TableView"
+        view.backgroundColor = .yellow
+    }
+    
+    
+    // MARK: - ArticlesListPresentable
+    func setCell(atRow row: Int, withArtcile article: Article) {
+        
+    }
 }

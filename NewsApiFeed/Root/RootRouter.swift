@@ -7,7 +7,7 @@
 
 import RIBs
 
-protocol RootInteractable: Interactable {
+protocol RootInteractable: Interactable, ArticlesListListener, ArticlesPagingListener {
     var router: RootRouting? { get set }
     var listener: RootListener? { get set }
 }
@@ -19,12 +19,41 @@ protocol RootViewControllable: ViewControllable {
 final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, RootRouting {
 
     // TODO: Constructor inject child builder protocols to allow building children.
-    override init(interactor: RootInteractable, viewController: RootViewControllable) {
+    private let articlesListBuilder: ArticlesListBuildable
+    private let articlesPagingBuilder: ArticlesPagingBuildable
+    
+        init(interactor: RootInteractable,
+                  viewController: RootViewControllable,
+                  articlesListBuilder: ArticlesListBuildable,
+                  articlesPagingBuilder: ArticlesPagingBuildable) {
+        self.articlesListBuilder = articlesListBuilder
+        self.articlesPagingBuilder = articlesPagingBuilder
         super.init(interactor: interactor, viewController: viewController)
         interactor.router = self
     }
     
     override func didLoad() {
         super.didLoad()
+        attachArticlesList()
+        attachArticlesPaging()
+    }
+    
+    // MARK: - RootRouting
+    func routeToArticlesList() {
+       // let builder = ArticlesListBuilder(dependency: )
+    }
+    
+    func routeToArticlesPaging() {
+        
+    }
+    
+    private func attachArticlesList() {
+        let articlesListRouter = articlesListBuilder.build(withListener: interactor)
+        attachChild(articlesListRouter)
+    }
+    
+    private func attachArticlesPaging() {
+        let articlesPagingRouter = articlesPagingBuilder.build(withListener: interactor)
+        attachChild(articlesPagingRouter)
     }
 }

@@ -5,8 +5,10 @@
 //  Created by Amadou Diarra SOW on 23/10/2021.
 //
 
+import Foundation
 import RIBs
 import RxSwift
+
 
 protocol ArticlesListRouting: ViewableRouting {
     // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
@@ -14,7 +16,7 @@ protocol ArticlesListRouting: ViewableRouting {
 
 protocol ArticlesListPresentable: Presentable {
     var listener: ArticlesListPresentableListener? { get set }
-    // TODO: Declare methods the interactor can invoke the presenter to present data.
+    func setCell(atRow row: Int, withArtcile article: Article)
 }
 
 protocol ArticlesListListener: AnyObject {
@@ -42,4 +44,14 @@ final class ArticlesListInteractor: PresentableInteractor<ArticlesListPresentabl
         super.willResignActive()
         // TODO: Pause any business logic.
     }
+}
+
+struct Article: Decodable {
+    let title: String?
+    let description: String?
+    let imageUrl: URL?
+}
+
+extension Article {
+    static let empty = Self(title: nil, description: nil, imageUrl: nil)
 }

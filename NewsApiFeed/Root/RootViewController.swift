@@ -15,12 +15,13 @@ protocol RootPresentableListener: AnyObject {
     // interactor class.
 }
 
-final class RootViewController: UIViewController, RootPresentable, RootViewControllable {
+final class RootViewController: UITabBarController, RootPresentable, RootViewControllable {
 
     weak var listener: RootPresentableListener?
     
     init() {
         super.init(nibName: nil, bundle: nil)
+        //self.viewControllers = viewControllers
     }
     
     required init?(coder: NSCoder) {
@@ -30,5 +31,10 @@ final class RootViewController: UIViewController, RootPresentable, RootViewContr
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .green
+       // setViewControllers(viewControllers, animated: false)
+    }
+    
+    private func setupTabController() {
+        
     }
 }
