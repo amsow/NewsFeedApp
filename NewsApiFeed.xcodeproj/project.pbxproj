@@ -27,6 +27,7 @@
 		2844E48C27249F63005FC882 /* ArticlesPagingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E48827249F63005FC882 /* ArticlesPagingInteractor.swift */; };
 		2844E48F2724CCE0005FC882 /* RootComponent+ArticlesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E48E2724CCE0005FC882 /* RootComponent+ArticlesList.swift */; };
 		2844E4922724CD04005FC882 /* RootComponent+ArticlesPaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E4912724CD04005FC882 /* RootComponent+ArticlesPaging.swift */; };
+		2844E499272593E2005FC882 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2844E498272593E2005FC882 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2844E499272593E2005FC882 /* SnapKit in Frameworks */,
 				2844E42C272442B0005FC882 /* SDWebImage in Frameworks */,
 				2844E42827243F80005FC882 /* RIBs in Frameworks */,
 			);
@@ -166,6 +168,7 @@
 			packageProductDependencies = (
 				2844E42727243F80005FC882 /* RIBs */,
 				2844E42B272442B0005FC882 /* SDWebImage */,
+				2844E498272593E2005FC882 /* SnapKit */,
 			);
 			productName = NewsApiFeed;
 			productReference = 2844E4002722E9D5005FC882 /* NewsApiFeed.app */;
@@ -197,6 +200,7 @@
 			packageReferences = (
 				2844E42627243F80005FC882 /* XCRemoteSwiftPackageReference "RIBs" */,
 				2844E42A272442B0005FC882 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				2844E497272593E2005FC882 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 2844E4012722E9D5005FC882 /* Products */;
 			projectDirPath = "";
@@ -449,6 +453,14 @@
 				minimumVersion = 5.12.1;
 			};
 		};
+		2844E497272593E2005FC882 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -461,6 +473,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2844E42A272442B0005FC882 /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImage;
+		};
+		2844E498272593E2005FC882 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2844E497272593E2005FC882 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
