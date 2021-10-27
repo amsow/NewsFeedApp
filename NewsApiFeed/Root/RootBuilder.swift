@@ -16,16 +16,20 @@ protocol RootDependency: Dependency {
 final class RootComponent: Component<RootDependency> {
      
     let rootViewController: RootViewController
-    let articleListViewController: ArticlesListViewControllable
+    let articleListViewController: ArticlesListViewController
     let articlesPageController: ArticlesPagingViewControllable
+    
+    let articlesFetcher: ArticleFetcher
     
      init(dependency: RootDependency,
           rootViewController: RootViewController,
-          articlesListController: ArticlesListViewControllable,
-          articlesPageController: ArticlesPagingViewControllable) {
+          articlesListController: ArticlesListViewController,
+          articlesPageController: ArticlesPagingViewControllable,
+          articlesFetcher: ArticleFetcher) {
         self.rootViewController = rootViewController
         self.articleListViewController = articlesListController
         self.articlesPageController = articlesPageController
+        self.articlesFetcher = articlesFetcher
         super.init(dependency: dependency)
     }
     // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
@@ -47,10 +51,12 @@ final class RootBuilder: Builder<RootDependency>, RootBuildable {
         let articlesListController = ArticlesListViewController()
         let articlesPageController = ArticlesPagingViewController()
         let tabBarController = RootViewController()
+        
         let component = RootComponent(dependency: dependency,
                                       rootViewController: tabBarController,
                                       articlesListController: articlesListController,
-                                      articlesPageController: articlesPageController)
+                                      articlesPageController: articlesPageController,
+                                      articlesFetcher: ArticlesFetcherImpl(webservice: NetWorker()))
         let articlesListNavController = UINavigationController(rootViewController: articlesListController)
         tabBarController.viewControllers = [articlesListNavController, articlesPageController]
         let interactor = RootInteractor(presenter: tabBarController)

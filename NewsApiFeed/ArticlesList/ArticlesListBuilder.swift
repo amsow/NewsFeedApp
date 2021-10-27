@@ -9,18 +9,12 @@ import RIBs
 import UIKit
 
 protocol ArticlesListDependency: Dependency {
-    var articleListViewController: ArticlesListViewControllable { get }
+    var articleListViewController: ArticlesListViewController { get }
+    var articlesFetcher: ArticleFetcher { get }
 }
 
 final class ArticlesListComponent: Component<ArticlesListDependency> {
     
-    let navigationController: UINavigationController
-    
-    init(dependency: ArticlesListDependency, navigationController: UINavigationController) {
-        self.navigationController = navigationController
-        super.init(dependency: dependency)
-    }
-
     // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
 }
 
@@ -37,12 +31,12 @@ final class ArticlesListBuilder: Builder<ArticlesListDependency>, ArticlesListBu
     }
 
     func build(withListener listener: ArticlesListListener) -> ArticlesListRouting {
-        let viewController = ArticlesListViewController()
-        let navigationController = UINavigationController(rootViewController: viewController)
-        let component = ArticlesListComponent(dependency: dependency, navigationController: navigationController)
-       
-        let interactor = ArticlesListInteractor(presenter: viewController)
+        let viewController = dependency.articleListViewController
+        let interactor = ArticlesListInteractor(presenter: viewController,
+                                                viewModel: ArticlesListViewModel(),
+                                                articlesFetcher: dependency.articlesFetcher)
         interactor.listener = listener
+        viewController.viewModel = interactor.viewModel
         return ArticlesListRouter(interactor: interactor, viewController: viewController)
     }
 }

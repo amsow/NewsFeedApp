@@ -21,7 +21,6 @@ final class RootViewController: UITabBarController, RootPresentable, RootViewCon
     
     init() {
         super.init(nibName: nil, bundle: nil)
-        //self.viewControllers = viewControllers
     }
     
     required init?(coder: NSCoder) {
@@ -30,11 +29,6 @@ final class RootViewController: UITabBarController, RootPresentable, RootViewCon
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .green
-       // setViewControllers(viewControllers, animated: false)
-    }
-    
-    private func setupTabController() {
-        
+        view.backgroundColor = .white
     }
 }

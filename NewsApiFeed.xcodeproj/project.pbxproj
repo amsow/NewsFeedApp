@@ -28,6 +28,10 @@
 		2844E48F2724CCE0005FC882 /* RootComponent+ArticlesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E48E2724CCE0005FC882 /* RootComponent+ArticlesList.swift */; };
 		2844E4922724CD04005FC882 /* RootComponent+ArticlesPaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E4912724CD04005FC882 /* RootComponent+ArticlesPaging.swift */; };
 		2844E499272593E2005FC882 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2844E498272593E2005FC882 /* SnapKit */; };
+		2844E49D2725DC93005FC882 /* ArticleFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E49C2725DC93005FC882 /* ArticleFetcher.swift */; };
+		2844E4A12725DD0B005FC882 /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E4A02725DD0B005FC882 /* Dispatcher.swift */; };
+		2844E4D427269157005FC882 /* NetWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E4D327269157005FC882 /* NetWorker.swift */; };
+		2844E4D8272839E1005FC882 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E4D7272839E0005FC882 /* Article.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +55,10 @@
 		2844E48827249F63005FC882 /* ArticlesPagingInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesPagingInteractor.swift; sourceTree = "<group>"; };
 		2844E48E2724CCE0005FC882 /* RootComponent+ArticlesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootComponent+ArticlesList.swift"; sourceTree = "<group>"; };
 		2844E4912724CD04005FC882 /* RootComponent+ArticlesPaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootComponent+ArticlesPaging.swift"; sourceTree = "<group>"; };
+		2844E49C2725DC93005FC882 /* ArticleFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleFetcher.swift; sourceTree = "<group>"; };
+		2844E4A02725DD0B005FC882 /* Dispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
+		2844E4D327269157005FC882 /* NetWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorker.swift; sourceTree = "<group>"; };
+		2844E4D7272839E0005FC882 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +94,8 @@
 		2844E4022722E9D5005FC882 /* NewsApiFeed */ = {
 			isa = PBXGroup;
 			children = (
+				2844E4D6272839CC005FC882 /* Models */,
+				2844E49B2725DC15005FC882 /* Network */,
 				2844E43727244C96005FC882 /* App */,
 				2844E43927244CC7005FC882 /* Resources */,
 				2844E40E2722E9D9005FC882 /* LaunchScreen.storyboard */,
@@ -147,6 +157,24 @@
 				2844E48827249F63005FC882 /* ArticlesPagingInteractor.swift */,
 			);
 			path = ArticlesPaging;
+			sourceTree = "<group>";
+		};
+		2844E49B2725DC15005FC882 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				2844E49C2725DC93005FC882 /* ArticleFetcher.swift */,
+				2844E4A02725DD0B005FC882 /* Dispatcher.swift */,
+				2844E4D327269157005FC882 /* NetWorker.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		2844E4D6272839CC005FC882 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2844E4D7272839E0005FC882 /* Article.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -230,12 +258,16 @@
 			files = (
 				2844E48B27249F63005FC882 /* ArticlesPagingBuilder.swift in Sources */,
 				2844E43527244B1C005FC882 /* RootInteractor.swift in Sources */,
+				2844E4A12725DD0B005FC882 /* Dispatcher.swift in Sources */,
 				2844E48027249EE1005FC882 /* ArticlesListInteractor.swift in Sources */,
+				2844E4D8272839E1005FC882 /* Article.swift in Sources */,
 				2844E48F2724CCE0005FC882 /* RootComponent+ArticlesList.swift in Sources */,
 				2844E43227244B1C005FC882 /* RootRouter.swift in Sources */,
 				2844E47F27249EE1005FC882 /* ArticlesListBuilder.swift in Sources */,
 				2844E48C27249F63005FC882 /* ArticlesPagingInteractor.swift in Sources */,
+				2844E4D427269157005FC882 /* NetWorker.swift in Sources */,
 				2844E47E27249EE1005FC882 /* ArticlesListViewController.swift in Sources */,
+				2844E49D2725DC93005FC882 /* ArticleFetcher.swift in Sources */,
 				2844E47D27249EE1005FC882 /* ArticlesListRouter.swift in Sources */,
 				2844E43427244B1C005FC882 /* RootBuilder.swift in Sources */,
 				2844E43327244B1C005FC882 /* RootViewController.swift in Sources */,

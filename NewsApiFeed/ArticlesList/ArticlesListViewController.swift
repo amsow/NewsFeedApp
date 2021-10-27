@@ -14,22 +14,41 @@ protocol ArticlesListPresentableListener: AnyObject {
     // TODO: Declare properties and methods that the view controller can invoke to perform
     // business logic, such as signIn(). This protocol is implemented by the corresponding
     // interactor class.
+    func didRefresh()
+    func didSelectArticle(at indexPath: IndexPath)
 }
 
 final class ArticlesListViewController: UIViewController, ArticlesListPresentable, ArticlesListViewControllable {
+   
+    
+    var viewModel: ArticlesListViewModel!
 
     weak var listener: ArticlesListPresentableListener?
     
     private lazy var tableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero)
         tableView.showsVerticalScrollIndicator = false
         tableView.showsHorizontalScrollIndicator = false
-        tableView.rowHeight = 60
+        tableView.rowHeight = 80
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = .white
         tableView.tableFooterView = UIView()
+        tableView.register(ArticleItemCell.self, forCellReuseIdentifier: ArticleItemCell.description())
+        tableView.refreshControl = refreshControl
         return tableView
+    }()
+    
+    private let activityIndicator: UIActivityIndicatorView = {
+        let aiView = UIActivityIndicatorView(style: .gray)
+        aiView.hidesWhenStopped = true
+        return aiView
+    }()
+    
+    private lazy var refreshControl: UIRefreshControl = {
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self, action: #selector(didPullRefresh(_:)), for: .valueChanged)
+        return refresh
     }()
     
     init() {
@@ -44,47 +63,77 @@ final class ArticlesListViewController: UIViewController, ArticlesListPresentabl
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "TableView"
-        view.backgroundColor = .yellow
-        setupTableView()
+        navigationItem.title = "New list"
+        setupView()
     }
     
-    private func setupTableView() {
+    private func setupView() {
         view.addSubview(tableView)
+        tableView.addSubview(activityIndicator)
+        
         tableView.snp.makeConstraints { maker in
             maker.edges.equalTo(self.view)
         }
         
-        tableView.register(ArticleItemCell.self, forCellReuseIdentifier: ArticleItemCell.description())
+        activityIndicator.snp.makeConstraints { maker in
+            maker.center.equalTo(self.tableView)
+        }
+    }
+    
+    @objc private func didPullRefresh(_ sender: UIRefreshControl) {
+        listener?.didRefresh()
     }
     
     // MARK: - ArticlesListPresentable
-    func setCell(atRow row: Int, withArtcile article: Article) {
+    
+    func showActivityIndicator() {
+        activityIndicator.startAnimating()
+    }
+    
+    func hideActivityIndicator() {
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+            if self.refreshControl.isRefreshing {
+                self.refreshControl.endRefreshing()
+            }
+        }
+    }
+    
+    func showError(message: String) {
         
+    }
+    
+    func reloadTableView() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }
 
 // MARK: - UITableViewDataSource & UITableViewDelegate
 extension ArticlesListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return viewModel?.numberOfItems() ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ArticleItemCell.description())
-        cell?.textLabel?.text = "Article \(indexPath.row)"
-        cell?.detailTextLabel?.text = "A small description of the article"
-        return cell ?? UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: ArticleItemCell.description(), for: indexPath) as! ArticleItemCell
+        let article = viewModel.item(at: indexPath.row)
+        cell.textLabel?.text = article?.title
+        cell.detailTextLabel?.text = article?.publishedAt
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        listener?.didSelectArticle(at: indexPath)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
 final class ArticleItemCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         setupView()
     }
     
@@ -95,5 +144,7 @@ final class ArticleItemCell: UITableViewCell {
     
     private func setupView() {
         backgroundColor = .white
+        textLabel?.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        detailTextLabel?.font = UIFont.systemFont(ofSize: 15, weight: .regular)
     }
 }
