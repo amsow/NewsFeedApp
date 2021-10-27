@@ -69,7 +69,7 @@ final class ArticlesListViewController: UIViewController, ArticlesListPresentabl
     
     private func setupView() {
         view.addSubview(tableView)
-        tableView.addSubview(activityIndicator)
+        view.addSubview(activityIndicator)
         
         tableView.snp.makeConstraints { maker in
             maker.edges.equalTo(self.view)
