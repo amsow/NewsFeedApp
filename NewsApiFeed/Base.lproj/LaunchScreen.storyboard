@@ -17,10 +17,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Launching ..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CNg-1L-ZNu">
-                                <rect key="frame" x="79" y="396.5" width="254" height="38.5"/>
+                                <rect key="frame" x="76" y="434" width="260" height="38.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="254" id="5Ek-yX-qLK"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="260" id="5Ek-yX-qLK"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -31,7 +31,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="CNg-1L-ZNu" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" constant="-1" id="FKS-YG-egR"/>
-                            <constraint firstItem="CNg-1L-ZNu" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" constant="-37.5" id="qfo-yf-3zm"/>
+                            <constraint firstItem="CNg-1L-ZNu" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="MlB-gT-Jo9"/>
                         </constraints>
                     </view>
                 </viewController>
