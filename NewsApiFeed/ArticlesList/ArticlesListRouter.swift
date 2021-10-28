@@ -23,4 +23,9 @@ final class ArticlesListRouter: ViewableRouter<ArticlesListInteractable, Article
         super.init(interactor: interactor, viewController: viewController)
         interactor.router = self
     }
+    
+    // MARK: - ArticlesListRouting
+    func routeToArticleDetail(article: Article) {
+        
+    }
 }

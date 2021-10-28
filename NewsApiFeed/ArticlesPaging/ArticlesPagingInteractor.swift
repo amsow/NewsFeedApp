@@ -42,4 +42,6 @@ final class ArticlesPagingInteractor: PresentableInteractor<ArticlesPagingPresen
         super.willResignActive()
         // TODO: Pause any business logic.
     }
+    
+    
 }

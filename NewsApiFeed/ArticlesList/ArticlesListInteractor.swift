@@ -12,6 +12,8 @@ import RxSwift
 
 protocol ArticlesListRouting: ViewableRouting {
     // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
+    
+    func routeToArticleDetail(article: Article)
 }
 
 protocol ListPresentable {
@@ -28,6 +30,7 @@ protocol ArticlesListPresentable: Presentable, ListPresentable {
 
 protocol ArticlesListListener: AnyObject {
     // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
+    //func selectArticle(at index: Int)
     func didFinishLoadingArticles(articles: [Article])
 }
 
@@ -85,7 +88,8 @@ extension ArticlesListInteractor: ArticlesListPresentableListener {
     }
     
     func didSelectArticle(at indexPath: IndexPath) {
-        
+        guard let article = viewModel.item(at: indexPath.row) else { return }
+        router?.routeToArticleDetail(article: article)
     }
 }
 
