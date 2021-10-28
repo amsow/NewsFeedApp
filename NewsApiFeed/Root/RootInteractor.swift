@@ -10,8 +10,7 @@ import RxSwift
 
 protocol RootRouting: ViewableRouting {
     // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
-    func routeToArticlesList()
-    func routeToArticlesPaging()
+    func attachArticlesPaging(with articles: [Article])
 }
 
 protocol RootPresentable: Presentable {
@@ -47,7 +46,7 @@ final class RootInteractor: PresentableInteractor<RootPresentable>, RootInteract
     }
     
     // MARK: - ArticlesListListener
-    func didFinishLoadingArticles() {
-        
+    func didFinishLoadingArticles(articles: [Article]) {
+        router?.attachArticlesPaging(with: articles)
     }
 }

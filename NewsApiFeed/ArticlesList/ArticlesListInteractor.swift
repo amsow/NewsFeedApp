@@ -28,7 +28,7 @@ protocol ArticlesListPresentable: Presentable, ListPresentable {
 
 protocol ArticlesListListener: AnyObject {
     // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
-    func didFinishLoadingArticles()
+    func didFinishLoadingArticles(articles: [Article])
 }
 
 final class ArticlesListInteractor: PresentableInteractor<ArticlesListPresentable>, ArticlesListInteractable {
@@ -67,6 +67,9 @@ final class ArticlesListInteractor: PresentableInteractor<ArticlesListPresentabl
             switch result {
                 case .success(let articles):
                     self?.viewModel.items = articles
+                    DispatchQueue.main.async {
+                        self?.listener?.didFinishLoadingArticles(articles: articles)
+                    }
                     self?.presenter.reloadTableView()
                 case .failure(let error):
                     self?.presenter.showError(message: error.localizedDescription)

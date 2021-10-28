@@ -19,7 +19,8 @@ final class ArticlesPagingViewController: UIPageViewController, ArticlesPagingPr
    
     weak var listener: ArticlesPagingPresentableListener?
     
-     let vcs = [UIViewController](repeating: UIViewController(), count: 40)
+    private var vcs = [UIViewController]()
+    var articles = [Article]()
     
     init() {
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
@@ -34,17 +35,21 @@ final class ArticlesPagingViewController: UIPageViewController, ArticlesPagingPr
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "PageView"
-        view.backgroundColor = .blue
-        setViewControllers([vcs.first!], direction: .forward, animated: true)
-        vcs.forEach { vc in
-            let randomNumber = CGFloat(Int.random(in: 0...10))
-            vc.view.backgroundColor = UIColor(red: 100 * randomNumber / 255, green: 200 * randomNumber / 255, blue: 150 * randomNumber, alpha: 1)
-            vc.title = "Title ===> \(randomNumber)"
-        }
-        
+        setupViewControllers()
         dataSource = self
+        delegate = self
     }
     
+    private func setupViewControllers() {
+        vcs = articles.map { _ in UIViewController()}
+        if let firstViewController = vcs.first {
+            setViewControllers([firstViewController], direction: .forward, animated: true)
+        }
+        vcs.forEach { vc in
+            var randomNumber: CGFloat { return CGFloat.random(in: 0...1) }
+            vc.view.backgroundColor = UIColor(red: randomNumber, green: randomNumber, blue: randomNumber, alpha: 1)
+        }
+    }
 }
 
 extension ArticlesPagingViewController: UIPageViewControllerDataSource {
@@ -65,3 +70,5 @@ extension ArticlesPagingViewController: UIPageViewControllerDataSource {
     }
     
 }
+
+extension ArticlesPagingViewController: UIPageViewControllerDelegate { }

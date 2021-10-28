@@ -16,6 +16,7 @@ protocol ArticlesListDependency: Dependency {
 final class ArticlesListComponent: Component<ArticlesListDependency> {
     
     // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
+    
 }
 
 // MARK: - Builder

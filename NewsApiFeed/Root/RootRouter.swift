@@ -6,6 +6,8 @@
 //
 
 import RIBs
+import Foundation
+import UIKit
 
 protocol RootInteractable: Interactable, ArticlesListListener, ArticlesPagingListener {
     var router: RootRouting? { get set }
@@ -22,6 +24,8 @@ final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, Ro
     private let articlesListBuilder: ArticlesListBuildable
     private let articlesPagingBuilder: ArticlesPagingBuildable
     
+    private var articlesPagingRouter: ArticlesPagingRouting?
+    
         init(interactor: RootInteractable,
                   viewController: RootViewControllable,
                   articlesListBuilder: ArticlesListBuildable,
@@ -35,25 +39,24 @@ final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, Ro
     override func didLoad() {
         super.didLoad()
         attachArticlesList()
-        attachArticlesPaging()
     }
     
     // MARK: - RootRouting
-    func routeToArticlesList() {
-       // let builder = ArticlesListBuilder(dependency: )
+    
+    func attachArticlesPaging(with articles: [Article]) {
+        print("****** Articles count ==> \(articles.count)")
+        let articlesPagingRouter = articlesPagingBuilder.build(withListener: interactor, articles: articles)
+        attachChild(articlesPagingRouter)
     }
     
-    func routeToArticlesPaging() {
-        
-    }
-    
+    // MARK: - Private helpers
     private func attachArticlesList() {
         let articlesListRouter = articlesListBuilder.build(withListener: interactor)
         attachChild(articlesListRouter)
     }
     
-    private func attachArticlesPaging() {
-        let articlesPagingRouter = articlesPagingBuilder.build(withListener: interactor)
-        attachChild(articlesPagingRouter)
+    private func initArticlesPaging() {
+        articlesPagingRouter = articlesPagingBuilder.build(withListener: interactor, articles: [])
+        attachChild(articlesPagingRouter!)
     }
 }

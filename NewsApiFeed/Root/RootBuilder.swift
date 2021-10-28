@@ -17,14 +17,14 @@ final class RootComponent: Component<RootDependency> {
      
     let rootViewController: RootViewController
     let articleListViewController: ArticlesListViewController
-    let articlesPageController: ArticlesPagingViewControllable
+    var articlesPageController: ArticlesPagingViewController
     
     let articlesFetcher: ArticleFetcher
     
      init(dependency: RootDependency,
           rootViewController: RootViewController,
           articlesListController: ArticlesListViewController,
-          articlesPageController: ArticlesPagingViewControllable,
+          articlesPageController: ArticlesPagingViewController,
           articlesFetcher: ArticleFetcher) {
         self.rootViewController = rootViewController
         self.articleListViewController = articlesListController
