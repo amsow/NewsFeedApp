@@ -13,7 +13,7 @@ protocol ArticlesListDependency: Dependency {
     var articlesFetcher: ArticleFetcher { get }
 }
 
-final class ArticlesListComponent: Component<ArticlesListDependency> {
+final class ArticlesListComponent: Component<ArticlesListDependency>, ArticleDetailDependency {
     
     // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
     

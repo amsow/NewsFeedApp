@@ -34,6 +34,7 @@ protocol ArticleDetailBuildable: Buildable {
 final class ArticleDetailBuilder: Builder<ArticleDetailDependency>, ArticleDetailBuildable {
 
     let article: Article
+    
     init(dependency: ArticleDetailDependency, article: Article) {
         self.article = article
         super.init(dependency: dependency)
