@@ -8,18 +8,20 @@
 import RIBs
 import RxSwift
 import SDWebImage
+import SafariServices
 
 protocol ArticleDetailPresentableListener: AnyObject {
     // TODO: Declare properties and methods that the view controller can invoke to perform
     // business logic, such as signIn(). This protocol is implemented by the corresponding
     // interactor class.
-    func openArticleInSafariBrowser()
+    func didOpenArticleInSafariBrowser(url: URL)
 }
 
 final class ArticleDetailViewController: UIViewController, ArticleDetailPresentable, ArticleDetailViewControllable {
 
     weak var listener: ArticleDetailPresentableListener?
     private let article: Article
+    private let disposeBag = DisposeBag()
     
     private let imageView: UIImageView = {
         let imgView = UIImageView()
@@ -42,8 +44,11 @@ final class ArticleDetailViewController: UIViewController, ArticleDetailPresenta
         return label
     }()
     
-    private let openInSafariButton: UIButton = {
+    private lazy var openInSafariButton: UIButton = {
         let button = UIButton(type: .system)
+        button.setTitle("Open in Safari", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        button.addTarget(self, action: #selector(openSafariButtonOnTap), for: .touchUpInside)
         return button
     }()
     
@@ -64,7 +69,7 @@ final class ArticleDetailViewController: UIViewController, ArticleDetailPresenta
     
     // MARK: - Setup View
     private func setupView() {
-        [imageView, titleLabel, contentLabel].forEach(view.addSubview)
+        [imageView, titleLabel, contentLabel, openInSafariButton].forEach(view.addSubview)
         
         imageView.snp.makeConstraints { maker in
             maker.top.equalTo(self.view).inset(15)
@@ -81,11 +86,32 @@ final class ArticleDetailViewController: UIViewController, ArticleDetailPresenta
             maker.top.equalTo(titleLabel.snp.bottom).offset(10)
             maker.left.right.equalTo(titleLabel)
         }
+        
+        openInSafariButton.snp.makeConstraints { maker in
+            maker.top.equalTo(contentLabel.snp.bottom).offset(25)
+            maker.width.equalTo(150)
+            maker.height.equalTo(40)
+            maker.centerX.equalTo(view)
+        }
     }
+    
+    // MARK: - Binding
     
     private func setValues() {
         imageView.sd_setImage(with: article.imageUrl, placeholderImage: #imageLiteral(resourceName: "news_placeholder"), options: .continueInBackground)
         titleLabel.text = article.title
         contentLabel.text = article.description
+    }
+    
+    @objc private func openSafariButtonOnTap(_ sender: UIButton) {
+        if let url = article.url {
+            listener?.didOpenArticleInSafariBrowser(url: url)
+        }
+    }
+
+    // MAR: - ArticleDetailViewControllable
+    func showArticleInBrowser(with url: URL) {
+        let safariVC = SFSafariViewController(url: url)
+        present(safariVC, animated: true)
     }
 }

@@ -6,10 +6,11 @@
 //
 
 import RIBs
-import RxSwift
+import Foundation
 
 protocol ArticleDetailRouting: ViewableRouting {
     // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
+    func routeToSafariBrowser(url: URL)
 }
 
 protocol ArticleDetailPresentable: Presentable {
@@ -22,7 +23,7 @@ protocol ArticleDetailListener: AnyObject {
 }
 
 final class ArticleDetailInteractor: PresentableInteractor<ArticleDetailPresentable>, ArticleDetailInteractable, ArticleDetailPresentableListener {
-
+   
     weak var router: ArticleDetailRouting?
     weak var listener: ArticleDetailListener?
 
@@ -41,5 +42,10 @@ final class ArticleDetailInteractor: PresentableInteractor<ArticleDetailPresenta
     override func willResignActive() {
         super.willResignActive()
         // TODO: Pause any business logic.
+    }
+    
+    // MARK: - ArticleDetailPresentableListener
+    func didOpenArticleInSafariBrowser(url: URL) {
+        router?.routeToSafariBrowser(url: url)
     }
 }
