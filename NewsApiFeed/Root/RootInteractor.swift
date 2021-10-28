@@ -49,4 +49,8 @@ final class RootInteractor: PresentableInteractor<RootPresentable>, RootInteract
     func didFinishLoadingArticles(articles: [Article]) {
         router?.attachArticlesPaging(with: articles)
     }
+    
+    func articlesLoadingOnComplete() {
+        print("Paging listener")
+    }
 }

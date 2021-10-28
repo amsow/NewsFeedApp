@@ -56,7 +56,7 @@ final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, Ro
     }
     
     private func initArticlesPaging() {
-        articlesPagingRouter = articlesPagingBuilder.build(withListener: interactor, articles: [])
-        attachChild(articlesPagingRouter!)
+      //  articlesPagingRouter = articlesPagingBuilder.build(withListener: interactor)
+      //  attachChild(articlesPagingRouter!)
     }
 }

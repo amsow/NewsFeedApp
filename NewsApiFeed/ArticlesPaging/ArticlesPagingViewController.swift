@@ -20,7 +20,6 @@ final class ArticlesPagingViewController: UIPageViewController, ArticlesPagingPr
     weak var listener: ArticlesPagingPresentableListener?
     
     private var vcs = [UIViewController]()
-    var articles = [Article]()
     
     init() {
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
@@ -35,13 +34,13 @@ final class ArticlesPagingViewController: UIPageViewController, ArticlesPagingPr
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "PageView"
-        setupViewControllers()
         dataSource = self
         delegate = self
     }
     
-    private func setupViewControllers() {
-        vcs = articles.map { _ in UIViewController()}
+    // MARK: - ArticlesPagingViewControllable
+    func setViewControllers(_ viewControllers: [ViewControllable]) {
+        vcs = viewControllers.map { $0.uiviewController }
         if let firstViewController = vcs.first {
             setViewControllers([firstViewController], direction: .forward, animated: true)
         }
@@ -49,6 +48,8 @@ final class ArticlesPagingViewController: UIPageViewController, ArticlesPagingPr
             var randomNumber: CGFloat { return CGFloat.random(in: 0...1) }
             vc.view.backgroundColor = UIColor(red: randomNumber, green: randomNumber, blue: randomNumber, alpha: 1)
         }
+        
+        print("View controllers count ====> ===> \(vcs.count)")
     }
 }
 

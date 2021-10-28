@@ -7,13 +7,13 @@
 
 import RIBs
 import RxSwift
-import UIKit
 import SDWebImage
 
 protocol ArticleDetailPresentableListener: AnyObject {
     // TODO: Declare properties and methods that the view controller can invoke to perform
     // business logic, such as signIn(). This protocol is implemented by the corresponding
     // interactor class.
+    func openArticleInSafariBrowser()
 }
 
 final class ArticleDetailViewController: UIViewController, ArticleDetailPresentable, ArticleDetailViewControllable {
@@ -24,20 +24,27 @@ final class ArticleDetailViewController: UIViewController, ArticleDetailPresenta
     private let imageView: UIImageView = {
         let imgView = UIImageView()
         imgView.contentMode = .scaleAspectFill
+        imgView.clipsToBounds = true
         return imgView
     }()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 25, weight: .medium)
         return label
     }()
     
     private let contentLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        label.numberOfLines = 0
         return label
+    }()
+    
+    private let openInSafariButton: UIButton = {
+        let button = UIButton(type: .system)
+        return button
     }()
     
     init(article: Article) {
@@ -60,24 +67,24 @@ final class ArticleDetailViewController: UIViewController, ArticleDetailPresenta
         [imageView, titleLabel, contentLabel].forEach(view.addSubview)
         
         imageView.snp.makeConstraints { maker in
-            maker.top.left.right.equalTo(self.view).offset(15)
-            maker.height.equalTo(250)
+            maker.top.equalTo(self.view).inset(15)
+            maker.left.right.equalTo(self.view)
+            maker.height.equalTo(300)
         }
         
         titleLabel.snp.makeConstraints { maker in
-            maker.top.equalTo(self.view.snp.bottom)
-            maker.left.right.equalTo(imageView)
+            maker.top.equalTo(imageView.snp.bottom).offset(20)
+            maker.left.right.equalTo(imageView).inset(15)
         }
         
         contentLabel.snp.makeConstraints { maker in
-            maker.top.equalTo(titleLabel.snp.bottom).offset(5)
+            maker.top.equalTo(titleLabel.snp.bottom).offset(10)
             maker.left.right.equalTo(titleLabel)
         }
     }
     
     private func setValues() {
-        imageView.sd_setImage(with: article.imageUrl, placeholderImage: nil, options: .continueInBackground)
-        
+        imageView.sd_setImage(with: article.imageUrl, placeholderImage: #imageLiteral(resourceName: "news_placeholder"), options: .continueInBackground)
         titleLabel.text = article.title
         contentLabel.text = article.description
     }

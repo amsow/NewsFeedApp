@@ -15,6 +15,10 @@ import RIBs
 //}
 //
 extension RootComponent: ArticlesPagingDependency {
+//    var articles: [Article] {
+//        <#code#>
+//    }
+    
 
     // TODO: Implement properties to provide for ArticlesPaging scope.
 }
