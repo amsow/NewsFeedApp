@@ -13,6 +13,12 @@ struct Article {
     let url: URL?
     let imageUrl: URL?
     let publishedAt: String?
+    let source: Source?
+    
+    struct Source: Decodable {
+        let id: String?
+        let name: String?
+    }
 }
 
 extension Article: Decodable {
@@ -22,6 +28,7 @@ extension Article: Decodable {
         case url
         case imageUrl = "urlToImage"
         case publishedAt
+        case source
     }
     
     init(from decoder: Decoder) throws {
@@ -31,9 +38,10 @@ extension Article: Decodable {
         url = URL(string: try container.decodeIfPresent(String.self, forKey: .url) ?? "")
         imageUrl = URL(string: try container.decodeIfPresent(String.self, forKey: .imageUrl) ?? "")
         publishedAt = try container.decodeIfPresent(String.self, forKey: .publishedAt)
+        source = try container.decodeIfPresent(Source.self, forKey: .source)
     }
 }
 
 extension Article {
-    static let empty = Self(title: nil, description: nil, url: nil, imageUrl: nil, publishedAt: nil)
+    static let empty = Self(title: nil, description: nil, url: nil, imageUrl: nil, publishedAt: nil, source: nil)
 }

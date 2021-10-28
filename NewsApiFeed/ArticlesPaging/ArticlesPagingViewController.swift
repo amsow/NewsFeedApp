@@ -21,6 +21,10 @@ final class ArticlesPagingViewController: UIPageViewController, ArticlesPagingPr
     
     private var vcs = [UIViewController]()
     
+    private var navigationTitle: String? {
+        didSet { navigationItem.title = navigationTitle }
+    }
+    
     init() {
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     }
@@ -44,30 +48,29 @@ final class ArticlesPagingViewController: UIPageViewController, ArticlesPagingPr
         if let firstViewController = vcs.first {
             setViewControllers([firstViewController], direction: .forward, animated: true)
         }
-        vcs.forEach { vc in
-            var randomNumber: CGFloat { return CGFloat.random(in: 0...1) }
-            vc.view.backgroundColor = UIColor(red: randomNumber, green: randomNumber, blue: randomNumber, alpha: 1)
-        }
-        
-        print("View controllers count ====> ===> \(vcs.count)")
     }
 }
 
+// MARK: - UIPageViewControllerDataSource
 extension ArticlesPagingViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let index = vcs.firstIndex(of: viewController), index > 0 else {
             return nil
         }
-        let before = index - 1
-        return vcs[before]
+        let previousIndex = index - 1
+        let vc = vcs[previousIndex]
+        navigationTitle = viewController.navigationItem.title
+        return vc
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let index = vcs.firstIndex(of: viewController), index < (vcs.count - 1) else {
             return nil
         }
-        let after = index + 1
-        return vcs[after]
+        let nextIndex = index + 1
+        let vc = vcs[nextIndex]
+        navigationTitle = viewController.navigationItem.title
+        return vc
     }
     
 }

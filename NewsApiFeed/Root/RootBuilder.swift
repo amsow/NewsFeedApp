@@ -58,7 +58,8 @@ final class RootBuilder: Builder<RootDependency>, RootBuildable {
                                       articlesPageController: articlesPageController,
                                       articlesFetcher: ArticlesFetcherImpl(webservice: NetWorker()))
         let articlesListNavController = UINavigationController(rootViewController: articlesListController)
-        tabBarController.viewControllers = [articlesListNavController, articlesPageController]
+        let pagingNavController = UINavigationController(rootViewController: articlesPageController)
+        tabBarController.viewControllers = [articlesListNavController, pagingNavController]
         let interactor = RootInteractor(presenter: tabBarController)
         let articlesListBuilder = ArticlesListBuilder(dependency: component)
         let articlesPagingBuilder = ArticlesPagingBuilder(dependency: component)

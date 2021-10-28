@@ -63,6 +63,7 @@ final class ArticleDetailViewController: UIViewController, ArticleDetailPresenta
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = article.source?.name
         setupView()
         setValues()
     }
@@ -72,7 +73,7 @@ final class ArticleDetailViewController: UIViewController, ArticleDetailPresenta
         [imageView, titleLabel, contentLabel, openInSafariButton].forEach(view.addSubview)
         
         imageView.snp.makeConstraints { maker in
-            maker.top.equalTo(self.view).inset(15)
+            maker.top.equalTo(self.view.snp.topMargin)
             maker.left.right.equalTo(self.view)
             maker.height.equalTo(300)
         }
