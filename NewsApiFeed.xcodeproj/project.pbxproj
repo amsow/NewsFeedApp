@@ -32,6 +32,10 @@
 		2844E4A12725DD0B005FC882 /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E4A02725DD0B005FC882 /* Dispatcher.swift */; };
 		2844E4D427269157005FC882 /* NetWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E4D327269157005FC882 /* NetWorker.swift */; };
 		2844E4D8272839E1005FC882 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E4D7272839E0005FC882 /* Article.swift */; };
+		2844E50C272B0502005FC882 /* ArticleDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E508272B0501005FC882 /* ArticleDetailRouter.swift */; };
+		2844E50D272B0502005FC882 /* ArticleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E509272B0501005FC882 /* ArticleDetailViewController.swift */; };
+		2844E50E272B0502005FC882 /* ArticleDetailBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E50A272B0501005FC882 /* ArticleDetailBuilder.swift */; };
+		2844E50F272B0502005FC882 /* ArticleDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E50B272B0501005FC882 /* ArticleDetailInteractor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +63,10 @@
 		2844E4A02725DD0B005FC882 /* Dispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
 		2844E4D327269157005FC882 /* NetWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorker.swift; sourceTree = "<group>"; };
 		2844E4D7272839E0005FC882 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
+		2844E508272B0501005FC882 /* ArticleDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailRouter.swift; sourceTree = "<group>"; };
+		2844E509272B0501005FC882 /* ArticleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailViewController.swift; sourceTree = "<group>"; };
+		2844E50A272B0501005FC882 /* ArticleDetailBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailBuilder.swift; sourceTree = "<group>"; };
+		2844E50B272B0501005FC882 /* ArticleDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailInteractor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +111,7 @@
 				2844E43C2724693B005FC882 /* Root */,
 				2844E48227249EFD005FC882 /* ArticlesList */,
 				2844E48427249F17005FC882 /* ArticlesPaging */,
+				2844E511272B050A005FC882 /* ArticleDetail */,
 			);
 			path = NewsApiFeed;
 			sourceTree = "<group>";
@@ -175,6 +184,17 @@
 				2844E4D7272839E0005FC882 /* Article.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		2844E511272B050A005FC882 /* ArticleDetail */ = {
+			isa = PBXGroup;
+			children = (
+				2844E508272B0501005FC882 /* ArticleDetailRouter.swift */,
+				2844E509272B0501005FC882 /* ArticleDetailViewController.swift */,
+				2844E50A272B0501005FC882 /* ArticleDetailBuilder.swift */,
+				2844E50B272B0501005FC882 /* ArticleDetailInteractor.swift */,
+			);
+			path = ArticleDetail;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,18 +278,22 @@
 			files = (
 				2844E48B27249F63005FC882 /* ArticlesPagingBuilder.swift in Sources */,
 				2844E43527244B1C005FC882 /* RootInteractor.swift in Sources */,
+				2844E50F272B0502005FC882 /* ArticleDetailInteractor.swift in Sources */,
 				2844E4A12725DD0B005FC882 /* Dispatcher.swift in Sources */,
 				2844E48027249EE1005FC882 /* ArticlesListInteractor.swift in Sources */,
 				2844E4D8272839E1005FC882 /* Article.swift in Sources */,
 				2844E48F2724CCE0005FC882 /* RootComponent+ArticlesList.swift in Sources */,
 				2844E43227244B1C005FC882 /* RootRouter.swift in Sources */,
+				2844E50C272B0502005FC882 /* ArticleDetailRouter.swift in Sources */,
 				2844E47F27249EE1005FC882 /* ArticlesListBuilder.swift in Sources */,
 				2844E48C27249F63005FC882 /* ArticlesPagingInteractor.swift in Sources */,
+				2844E50D272B0502005FC882 /* ArticleDetailViewController.swift in Sources */,
 				2844E4D427269157005FC882 /* NetWorker.swift in Sources */,
 				2844E47E27249EE1005FC882 /* ArticlesListViewController.swift in Sources */,
 				2844E49D2725DC93005FC882 /* ArticleFetcher.swift in Sources */,
 				2844E47D27249EE1005FC882 /* ArticlesListRouter.swift in Sources */,
 				2844E43427244B1C005FC882 /* RootBuilder.swift in Sources */,
+				2844E50E272B0502005FC882 /* ArticleDetailBuilder.swift in Sources */,
 				2844E43327244B1C005FC882 /* RootViewController.swift in Sources */,
 				2844E4042722E9D5005FC882 /* AppDelegate.swift in Sources */,
 				2844E4922724CD04005FC882 /* RootComponent+ArticlesPaging.swift in Sources */,
