@@ -64,6 +64,7 @@ final class ArticleDetailViewController: UIViewController, ArticleDetailPresenta
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = article.source?.name
+        view.backgroundColor = .white
         setupView()
         setValues()
     }

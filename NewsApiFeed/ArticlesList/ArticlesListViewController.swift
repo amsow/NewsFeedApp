@@ -14,7 +14,6 @@ protocol ArticlesListPresentableListener: AnyObject {
     // TODO: Declare properties and methods that the view controller can invoke to perform
     // business logic, such as signIn(). This protocol is implemented by the corresponding
     // interactor class.
-    func viewWillAppear()
     func didRefresh()
     func didSelectArticle(at indexPath: IndexPath)
 }
@@ -70,7 +69,6 @@ final class ArticlesListViewController: UIViewController, ArticlesListPresentabl
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        listener?.viewWillAppear()
     }
     
     private func setupView() {
