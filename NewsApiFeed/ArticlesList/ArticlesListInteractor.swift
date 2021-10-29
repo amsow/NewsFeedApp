@@ -91,30 +91,3 @@ extension ArticlesListInteractor: ArticlesListPresentableListener {
         router?.routeToArticleDetail(article: article)
     }
 }
-
-
-final class ArticlesListViewModel: ListViewModel {
-    
-    var items = [Article]()
-    
-     init() { }
-}
-
-protocol ListViewModel: class {
-    associatedtype Item
-    var items: [Item] { get set }
-}
-
-extension ListViewModel {
-    func numberOfItems() -> Int {
-        return items.count
-    }
-    
-    func item(at index: Int) -> Item? {
-        guard numberOfItems() > index else {
-            return nil
-        }
-        return items[index]
-    }
-    
-}
