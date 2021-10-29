@@ -45,8 +45,6 @@ class NetWorker: Dispatcher {
                 completion(.failure(NetworkingError.noData))
                 return
             }
-            let json = try? JSONSerialization.jsonObject(with: data, options: .init(rawValue: 0))
-            print("===== Result ====>\n\(json)")
             completion(decode(T.self, data: data))
         }
     }
