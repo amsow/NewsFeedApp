@@ -24,11 +24,6 @@ protocol RootListener: AnyObject {
 
 final class RootInteractor: PresentableInteractor<RootPresentable>, RootInteractable, RootPresentableListener {
     
-//    func articlesLoaded(_ articles: [Article]) {
-//        <#code#>
-//    }
-    
-    
     weak var router: RootRouting?
     weak var listener: RootListener?
 
