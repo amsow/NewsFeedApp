@@ -14,6 +14,7 @@ protocol ArticlesListPresentableListener: AnyObject {
     // TODO: Declare properties and methods that the view controller can invoke to perform
     // business logic, such as signIn(). This protocol is implemented by the corresponding
     // interactor class.
+    func viewWillAppear()
     func didRefresh()
     func didSelectArticle(at indexPath: IndexPath)
 }
@@ -67,6 +68,11 @@ final class ArticlesListViewController: UIViewController, ArticlesListPresentabl
         setupView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        listener?.viewWillAppear()
+    }
+    
     private func setupView() {
         view.addSubview(tableView)
         view.addSubview(activityIndicator)
@@ -108,6 +114,11 @@ final class ArticlesListViewController: UIViewController, ArticlesListPresentabl
             self.tableView.reloadData()
         }
     }
+    
+    // MARK: - ArticlesListViewControllable
+    func pushViewController(_ viewControllable: ViewControllable, animated: Bool) {
+        navigationController?.pushViewController(viewControllable.uiviewController, animated: animated)
+    }
 }
 
 // MARK: - UITableViewDataSource & UITableViewDelegate
@@ -146,5 +157,16 @@ final class ArticleItemCell: UITableViewCell {
         backgroundColor = .white
         textLabel?.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         detailTextLabel?.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+    }
+}
+
+
+public extension UINavigationController {
+    
+    func pushViewController(_ viewController: UIViewController, animated: Bool = true, completion: (() -> Void)? = nil) {
+        CATransaction.begin()
+        CATransaction.setCompletionBlock(completion)
+        pushViewController(viewController, animated: animated)
+        CATransaction.commit()
     }
 }

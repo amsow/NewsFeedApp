@@ -40,13 +40,9 @@ final class ArticlesPagingBuilder: Builder<ArticlesPagingDependency>, ArticlesPa
     func build(withListener listener: ArticlesPagingListener, articles: [Article]) -> ArticlesPagingRouting {
         let component = ArticlesPagingComponent(dependency: dependency)
         let viewController = component.articlesPageController
-        //viewController.articles = component.articles
-        
-        let articlesDetailsBuilders = articles.map {
-            ArticleDetailBuilder(dependency: component, article: $0)
-        }
-        let interactor = ArticlesPagingInteractor(presenter: viewController)
+        let articlesDetailsBuilder = ArticleDetailBuilder(dependency: component)
+        let interactor = ArticlesPagingInteractor(presenter: viewController, articles: articles)
         interactor.listener = listener
-        return ArticlesPagingRouter(interactor: interactor, viewController: viewController, articleDetailsBuilders: articlesDetailsBuilders)
+        return ArticlesPagingRouter(interactor: interactor, viewController: viewController, articleDetailsBuilder: articlesDetailsBuilder)
     }
 }

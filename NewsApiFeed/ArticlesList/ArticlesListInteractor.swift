@@ -12,7 +12,7 @@ import RxSwift
 
 protocol ArticlesListRouting: ViewableRouting {
     // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
-    
+    func detachCurrentChild()
     func routeToArticleDetail(article: Article)
 }
 
@@ -30,7 +30,6 @@ protocol ArticlesListPresentable: Presentable, ListPresentable {
 
 protocol ArticlesListListener: AnyObject {
     // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
-    //func selectArticle(at index: Int)
     func didFinishLoadingArticles(articles: [Article])
 }
 
@@ -83,6 +82,11 @@ final class ArticlesListInteractor: PresentableInteractor<ArticlesListPresentabl
 
 // MARK: - ArticlesListPresentableListener
 extension ArticlesListInteractor: ArticlesListPresentableListener {
+    
+    func viewWillAppear() {
+        router?.detachCurrentChild()
+    }
+    
     func didRefresh() {
         loadTopHeadlinesArticles()
     }

@@ -8,12 +8,12 @@
 import RIBs
 import UIKit
 
-protocol ArticlesListDependency: Dependency {
+protocol ArticlesListDependency: ArticleDetailDependency {
     var articleListViewController: ArticlesListViewController { get }
     var articlesFetcher: ArticleFetcher { get }
 }
 
-final class ArticlesListComponent: Component<ArticlesListDependency>, ArticleDetailDependency {
+final class ArticlesListComponent: Component<ArticlesListDependency> {
     
     // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
     
@@ -32,12 +32,14 @@ final class ArticlesListBuilder: Builder<ArticlesListDependency>, ArticlesListBu
     }
 
     func build(withListener listener: ArticlesListListener) -> ArticlesListRouting {
+        let _ = ArticlesListComponent(dependency: dependency)
         let viewController = dependency.articleListViewController
         let interactor = ArticlesListInteractor(presenter: viewController,
                                                 viewModel: ArticlesListViewModel(),
                                                 articlesFetcher: dependency.articlesFetcher)
+        let articleDetailBuilder = ArticleDetailBuilder(dependency: dependency)
         interactor.listener = listener
         viewController.viewModel = interactor.viewModel
-        return ArticlesListRouter(interactor: interactor, viewController: viewController)
+        return ArticlesListRouter(interactor: interactor, viewController: viewController, articleDetailBuilder: articleDetailBuilder)
     }
 }

@@ -7,25 +7,45 @@
 
 import RIBs
 
-protocol ArticlesListInteractable: Interactable {
+protocol ArticlesListInteractable: Interactable, ArticleDetailListener {
     var router: ArticlesListRouting? { get set }
     var listener: ArticlesListListener? { get set }
 }
 
 protocol ArticlesListViewControllable: ViewControllable {
     // TODO: Declare methods the router invokes to manipulate the view hierarchy.
+    func pushViewController(_ viewControllable: ViewControllable, animated: Bool)
 }
 
 final class ArticlesListRouter: ViewableRouter<ArticlesListInteractable, ArticlesListViewControllable>, ArticlesListRouting {
 
-    // TODO: Constructor inject child builder protocols to allow building children.
-    override init(interactor: ArticlesListInteractable, viewController: ArticlesListViewControllable) {
+    let articleDetailBuilder: ArticleDetailBuildable
+    
+    private var currentArticleDertailRouting: ViewableRouting?
+    
+     init(interactor: ArticlesListInteractable, viewController: ArticlesListViewControllable,
+          articleDetailBuilder: ArticleDetailBuildable) {
+        self.articleDetailBuilder = articleDetailBuilder
         super.init(interactor: interactor, viewController: viewController)
         interactor.router = self
     }
     
     // MARK: - ArticlesListRouting
     func routeToArticleDetail(article: Article) {
+        detachCurrentChild()
+        let router = articleDetailBuilder.build(withListener: interactor, article: article)
+        currentArticleDertailRouting = router
+        attachChild(router)
+        viewController.pushViewController(router.viewControllable, animated: true)
+    }
+    
+    private func attachArticleDetail() {
         
+    }
+    
+     func detachCurrentChild() {
+        if let child = currentArticleDertailRouting {
+            detachChild(child)
+        }
     }
 }

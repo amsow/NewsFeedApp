@@ -10,7 +10,7 @@ import RxSwift
 
 protocol ArticlesPagingRouting: ViewableRouting {
     // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
-    func attachArticlesDetails()
+    func attachArticlesDetails(articles: [Article])
 }
 
 protocol ArticlesPagingPresentable: Presentable {
@@ -29,13 +29,18 @@ final class ArticlesPagingInteractor: PresentableInteractor<ArticlesPagingPresen
 
     // TODO: Add additional dependencies to constructor. Do not perform any logic
     // in constructor.
-    override init(presenter: ArticlesPagingPresentable) {
+    
+    let articles: [Article]
+    
+    init(presenter: ArticlesPagingPresentable, articles: [Article]) {
+        self.articles = articles
         super.init(presenter: presenter)
         presenter.listener = self
     }
 
     override func didBecomeActive() {
         super.didBecomeActive()
+        router?.attachArticlesDetails(articles: articles)
     }
 
     override func willResignActive() {
