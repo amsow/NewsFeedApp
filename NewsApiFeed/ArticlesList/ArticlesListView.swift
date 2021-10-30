@@ -45,9 +45,3 @@ struct ArticlesListView_Previews: PreviewProvider {
         ArticlesListView(items: items, viewModel: ArticlesListViewModelObject())
     }
 }
-
-
-@available(iOS 13.0, *)
-extension ViewControllable where Self == View.Type {
-    
-}
