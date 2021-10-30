@@ -33,3 +33,12 @@ final class ArticlesListViewModel: ListViewModel {
 }
 
 
+@available(iOS 13.0, *)
+final class ArticlesListViewModelObject: ObservableObject, ListViewModel {
+    
+    @Published var items = [Article]()
+    
+     init() { }
+}
+
+
