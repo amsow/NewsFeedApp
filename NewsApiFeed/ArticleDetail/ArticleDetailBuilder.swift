@@ -33,17 +33,11 @@ protocol ArticleDetailBuildable: Buildable {
 
 final class ArticleDetailBuilder: Builder<ArticleDetailDependency>, ArticleDetailBuildable {
 
-//    let article: Article
-//
-//    init(dependency: ArticleDetailDependency, article: Article) {
-//        self.article = article
-//        super.init(dependency: dependency)
-//    }
 
     func build(withListener listener: ArticleDetailListener, article: Article) -> ArticleDetailRouting {
         let _ = ArticleDetailComponent(dependency: dependency)
-        let viewController = ArticleDetailViewController(article: article)
-        let interactor = ArticleDetailInteractor(presenter: viewController)
+        let viewController = ArticleDetailViewController()
+        let interactor = ArticleDetailInteractor(presenter: viewController, article: article)
         interactor.listener = listener
         return ArticleDetailRouter(interactor: interactor, viewController: viewController)
     }

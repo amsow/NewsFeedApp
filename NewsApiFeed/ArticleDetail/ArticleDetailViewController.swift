@@ -14,13 +14,12 @@ protocol ArticleDetailPresentableListener: AnyObject {
     // TODO: Declare properties and methods that the view controller can invoke to perform
     // business logic, such as signIn(). This protocol is implemented by the corresponding
     // interactor class.
-    func didOpenArticleInSafariBrowser(url: URL)
+    func didOpenArticleInSafariBrowser()
 }
 
 final class ArticleDetailViewController: UIViewController, ArticleDetailPresentable, ArticleDetailViewControllable {
 
     weak var listener: ArticleDetailPresentableListener?
-    private let article: Article
     private let disposeBag = DisposeBag()
     
     private let imageView: UIImageView = {
@@ -52,8 +51,7 @@ final class ArticleDetailViewController: UIViewController, ArticleDetailPresenta
         return button
     }()
     
-    init(article: Article) {
-        self.article = article
+    init() {
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -63,10 +61,8 @@ final class ArticleDetailViewController: UIViewController, ArticleDetailPresenta
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = article.source?.name
         view.backgroundColor = .white
         setupView()
-        setValues()
     }
     
     // MARK: - Setup View
@@ -97,21 +93,23 @@ final class ArticleDetailViewController: UIViewController, ArticleDetailPresenta
         }
     }
     
-    // MARK: - Binding
+    // MARK: - ArticleDetailPresentable
     
-    private func setValues() {
-        imageView.sd_setImage(with: article.imageUrl, placeholderImage: #imageLiteral(resourceName: "news_placeholder"), options: .continueInBackground)
+    func setViews(with article: Article) {
+        navigationItem.title = article.source?.name
+        imageView.sd_setImage(with: article.imageUrl,
+                              placeholderImage: #imageLiteral(resourceName: "news_placeholder"),
+                              options: .continueInBackground)
         titleLabel.text = article.title
         contentLabel.text = article.description
     }
     
+    // MARK: - Events
     @objc private func openSafariButtonOnTap(_ sender: UIButton) {
-        if let url = article.url {
-            listener?.didOpenArticleInSafariBrowser(url: url)
-        }
+            listener?.didOpenArticleInSafariBrowser()
     }
 
-    // MAR: - ArticleDetailViewControllable
+    // MARK: - ArticleDetailViewControllable
     func showArticleInBrowser(with url: URL) {
         let safariVC = SFSafariViewController(url: url)
         present(safariVC, animated: true)

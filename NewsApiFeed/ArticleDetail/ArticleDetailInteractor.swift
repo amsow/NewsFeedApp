@@ -16,6 +16,7 @@ protocol ArticleDetailRouting: ViewableRouting {
 protocol ArticleDetailPresentable: Presentable {
     var listener: ArticleDetailPresentableListener? { get set }
     // TODO: Declare methods the interactor can invoke the presenter to present data.
+    func setViews(with article: Article)
 }
 
 protocol ArticleDetailListener: AnyObject {
@@ -26,10 +27,13 @@ final class ArticleDetailInteractor: PresentableInteractor<ArticleDetailPresenta
    
     weak var router: ArticleDetailRouting?
     weak var listener: ArticleDetailListener?
+    
+    private let article: Article
 
     // TODO: Add additional dependencies to constructor. Do not perform any logic
     // in constructor.
-    override init(presenter: ArticleDetailPresentable) {
+    init(presenter: ArticleDetailPresentable, article: Article) {
+        self.article = article
         super.init(presenter: presenter)
         presenter.listener = self
     }
@@ -37,6 +41,7 @@ final class ArticleDetailInteractor: PresentableInteractor<ArticleDetailPresenta
     override func didBecomeActive() {
         super.didBecomeActive()
         // TODO: Implement business logic here.
+        presenter.setViews(with: article)
     }
 
     override func willResignActive() {
@@ -45,7 +50,9 @@ final class ArticleDetailInteractor: PresentableInteractor<ArticleDetailPresenta
     }
     
     // MARK: - ArticleDetailPresentableListener
-    func didOpenArticleInSafariBrowser(url: URL) {
-        router?.routeToSafariBrowser(url: url)
+    func didOpenArticleInSafariBrowser() {
+        if let url = article.url {
+            router?.routeToSafariBrowser(url: url)
+        }
     }
 }
