@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 enum NetworkingError: Error {
     case noData
@@ -30,6 +31,14 @@ class NetWorker: Dispatcher {
             self.dataTaskCompletionHandler(result: (data, response, error), completion: completion)
         }
         .resume()
+    }
+    
+    @available(iOS 13.0, *)
+    func execute<T: Decodable>(request: Request) -> AnyPublisher<T, Error> {
+         return session.dataTaskPublisher(for: prepareURLRequest(for: request))
+            .map(\.data)
+            .decode(type: T.self, decoder: JSONDecoder())
+            .eraseToAnyPublisher()
     }
     
     private func dataTaskCompletionHandler<T: Decodable>(result: URLSessionDataTaskResult,

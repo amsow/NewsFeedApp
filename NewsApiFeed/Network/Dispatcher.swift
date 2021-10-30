@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 struct Environment {
     static let NewsAPIKey = "e8c61255af7e42a5b8b77db5bf2e6d3b"
@@ -19,6 +20,8 @@ protocol Dispatcher: AnyObject {
     init(session: URLSession)
     
     func execute<T: Decodable>(request: Request, completion: @escaping (Result<T, Error>) -> Void)
+    @available(iOS 13.0, *)
+    func execute<T: Decodable>(request: Request) -> AnyPublisher<T, Error>
 }
 
 

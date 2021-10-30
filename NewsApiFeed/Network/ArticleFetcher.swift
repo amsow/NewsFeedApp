@@ -6,9 +6,12 @@
 //
 
 import Foundation
+import Combine
 
 protocol ArticleFetcher {
     func fetchArticles(completion: @escaping (Result<[Article], Error>) -> Void)
+    @available(iOS 13.0, *)
+    func fetchArticles() -> AnyPublisher<[Article], Error>
 }
 
 final class ArticlesFetcherImpl: ArticleFetcher {
@@ -29,6 +32,15 @@ final class ArticlesFetcherImpl: ArticleFetcher {
                 completion(.failure(error))
             }
         }
+    }
+    
+    @available(iOS 13.0, *)
+    func fetchArticles() -> AnyPublisher<[Article], Error> {
+        return webservice.execute(request: BusinessTopHeadlinesRequest())
+            .map(GetArticlesResponse.init)
+            .map(\.articles)
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
     }
 }
 

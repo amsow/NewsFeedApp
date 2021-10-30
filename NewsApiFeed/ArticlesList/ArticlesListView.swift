@@ -7,8 +7,10 @@
 
 
 import SwiftUI
+import RIBs
 
 @available(iOS 13.0.0, *)
+
 struct ArticlesListView: View {
     var items = ["1", "2", "3", "4", "5"]
     @ObservedObject var viewModel: ArticlesListViewModelObject
@@ -42,4 +44,10 @@ struct ArticlesListView_Previews: PreviewProvider {
     static var previews: some View {
         ArticlesListView(items: items, viewModel: ArticlesListViewModelObject())
     }
+}
+
+
+@available(iOS 13.0, *)
+extension ViewControllable where Self == View.Type {
+    
 }
