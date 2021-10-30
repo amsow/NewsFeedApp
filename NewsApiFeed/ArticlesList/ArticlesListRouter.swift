@@ -19,9 +19,9 @@ protocol ArticlesListViewControllable: ViewControllable {
 
 final class ArticlesListRouter: ViewableRouter<ArticlesListInteractable, ArticlesListViewControllable>, ArticlesListRouting {
 
-    let articleDetailBuilder: ArticleDetailBuildable
+    private let articleDetailBuilder: ArticleDetailBuildable
     
-    private var currentArticleDertailRouting: ViewableRouting?
+    private var currentArticleDetailRouting: ViewableRouting?
     
      init(interactor: ArticlesListInteractable, viewController: ArticlesListViewControllable,
           articleDetailBuilder: ArticleDetailBuildable) {
@@ -34,18 +34,15 @@ final class ArticlesListRouter: ViewableRouter<ArticlesListInteractable, Article
     func routeToArticleDetail(article: Article) {
         detachCurrentChild()
         let router = articleDetailBuilder.build(withListener: interactor, article: article)
-        currentArticleDertailRouting = router
+        currentArticleDetailRouting = router
         attachChild(router)
         viewController.pushViewController(router.viewControllable, animated: true)
     }
     
-    private func attachArticleDetail() {
-        
-    }
-    
-     func detachCurrentChild() {
-        if let child = currentArticleDertailRouting {
+    private func detachCurrentChild() {
+        if let child = currentArticleDetailRouting {
             detachChild(child)
+            currentArticleDetailRouting = nil
         }
     }
 }
