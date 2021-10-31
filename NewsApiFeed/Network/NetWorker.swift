@@ -8,6 +8,10 @@
 import Foundation
 import Combine
 
+struct FetchArticlesRequestResponse<Wrapped: Decodable>: Decodable {
+    let articles: Wrapped
+}
+
 enum NetworkingError: Error {
     case noData
 }
@@ -34,7 +38,7 @@ class NetWorker: Dispatcher {
     }
     
     @available(iOS 13.0, *)
-    func execute<T: Decodable>(request: Request) -> AnyPublisher<T, Error> {
+    func execute<T: Decodable>(request: Request, responseType: T.Type = T.self) -> AnyPublisher<T, Error> {
          return session.dataTaskPublisher(for: prepareURLRequest(for: request))
             .map(\.data)
             .decode(type: T.self, decoder: JSONDecoder())

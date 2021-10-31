@@ -36,8 +36,7 @@ final class ArticlesFetcherImpl: ArticleFetcher {
     
     @available(iOS 13.0, *)
     func fetchArticles() -> AnyPublisher<[Article], Error> {
-        return webservice.execute(request: BusinessTopHeadlinesRequest())
-            .map(GetArticlesResponse.init)
+        return webservice.execute(request: BusinessTopHeadlinesRequest(), responseType: GetArticlesResponse.self)
             .map(\.articles)
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()

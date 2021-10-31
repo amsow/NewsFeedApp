@@ -21,7 +21,7 @@ protocol Dispatcher: AnyObject {
     
     func execute<T: Decodable>(request: Request, completion: @escaping (Result<T, Error>) -> Void)
     @available(iOS 13.0, *)
-    func execute<T: Decodable>(request: Request) -> AnyPublisher<T, Error>
+    func execute<T: Decodable>(request: Request, responseType: T.Type) -> AnyPublisher<T, Error>
 }
 
 

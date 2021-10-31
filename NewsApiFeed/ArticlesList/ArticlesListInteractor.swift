@@ -76,9 +76,12 @@ final class ArticlesListInteractor: PresentableInteractor<ArticlesListPresentabl
         if self.viewModel.items.isEmpty { presenter.showActivityIndicator() }
         if #available(iOS 13, *) {
            getNewsRequestCancellable = articlesFetcher.fetchArticles()
-                .sink(receiveCompletion: { _ in },
+                .sink(receiveCompletion: { print("Completion ==> \($0)") },
                       receiveValue: { [weak self] articles in
                     self?.viewModelObject.items = articles
+                    self?.viewModel.items = articles
+                    self?.presenter.reloadTableView()
+                    self?.listener?.didFinishLoadingArticles(articles: articles)
                 })
         } else { // For older version than iOS 13
             articlesFetcher.fetchArticles { [weak self] result in
