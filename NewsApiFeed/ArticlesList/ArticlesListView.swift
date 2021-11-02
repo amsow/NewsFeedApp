@@ -18,22 +18,30 @@ struct ArticlesListView: View {
     var body: some View {
         NavigationView {
             List(items, id: \.self) { item in
-                
-                
                 NavigationLink {
                     
                 } label: {
-                    VStack(alignment: .leading, spacing: 3) {
-                        Text("Text for item \(item)")
-                            .font(.system(size: 20))
-                            .fontWeight(.medium)
-                        Text("Description for item \(item)")
-                    }
+                    ArticleItemView(title: item, description: item)
                 }
-                
             }
             .navigationBarTitle(Text("News"))
         }
+    }
+}
+
+@available(iOS 13.0.0, *)
+struct ArticleItemView: View {
+    let title: String
+    let description: String
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 3) {
+            Text("Text for item \(title)")
+                .font(.system(size: 20))
+                .fontWeight(.medium)
+            Text("Description for item \(description)")
+        }
+        .frame(height: 80, alignment: .leading)
     }
 }
 
