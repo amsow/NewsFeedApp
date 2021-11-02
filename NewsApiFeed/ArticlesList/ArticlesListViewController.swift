@@ -9,6 +9,7 @@ import RIBs
 import RxSwift
 import UIKit
 import SnapKit
+import SwiftUI
 
 protocol ArticlesListPresentableListener: AnyObject {
     // TODO: Declare properties and methods that the view controller can invoke to perform
@@ -158,13 +159,15 @@ final class ArticleItemCell: UITableViewCell {
     }
 }
 
-
-public extension UINavigationController {
+@available(iOS 13, *)
+extension ArticleItemCell: UIViewRepresentable {
     
-    func pushViewController(_ viewController: UIViewController, animated: Bool = true, completion: (() -> Void)? = nil) {
-        CATransaction.begin()
-        CATransaction.setCompletionBlock(completion)
-        pushViewController(viewController, animated: animated)
-        CATransaction.commit()
+    typealias UIViewType = UITableViewCell
+    
+    func makeUIView(context: Context) -> UITableViewCell {
+        return self
     }
+    
+    func updateUIView(_ uiView: UITableViewCell, context: Context) { }
+    
 }
