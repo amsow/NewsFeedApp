@@ -164,6 +164,12 @@ extension ArticleItemCell: UIViewRepresentable {
     
     typealias UIViewType = UITableViewCell
     
+    convenience init(title: String, description: String) {
+        self.init(style: .subtitle, reuseIdentifier: nil)
+        self.textLabel?.text = title
+        self.detailTextLabel?.text = description
+    }
+    
     func makeUIView(context: Context) -> UITableViewCell {
         return self
     }

@@ -17,12 +17,14 @@ struct ArticlesListView: View {
     
     var body: some View {
         NavigationView {
-            List(viewModel.items, id: \.id) { article in
+            List(items, id: \.self) { article in
                 NavigationLink {
                     
                 } label: {
-                    ArticleItemView(title: article.title!, description: article.description!)
+                    ArticleItemCell(title: "Article Item title", description: "Description")
+                        .frame(height: 80, alignment: .leading)
                 }
+                
             }
         
             .navigationBarTitle(Text("News"))
