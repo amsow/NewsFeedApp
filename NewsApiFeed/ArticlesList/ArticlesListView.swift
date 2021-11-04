@@ -18,14 +18,15 @@ struct ArticlesListView: View {
     var body: some View {
         NavigationView {
             List(viewModel.items, id: \.id) { article in
-                NavigationLink(destination: EmptyView()) {
+                NavigationLink(destination: ArticleDetailView(article: article)) {
                     ArticleItemView(title: article.title!, description: article.description!)
                         .frame(height: 80, alignment: .leading)
+                        .buttonStyle(PlainButtonStyle())
                 }
-                //.buttonStyle(PlainButtonStyle())
             }
             .navigationBarTitle(Text("News"))
         }
+        
     }
 }
 
