@@ -20,9 +20,8 @@ protocol ArticlesListPresentableListener: AnyObject {
 }
 
 final class ArticlesListViewController: UIViewController, ArticlesListPresentable, ArticlesListViewControllable {
-   
-    
-    var viewModel: ArticlesListViewModel!
+
+    private(set) var viewModel: ArticlesListViewModel!
 
     weak var listener: ArticlesListPresentableListener?
     
@@ -60,6 +59,20 @@ final class ArticlesListViewController: UIViewController, ArticlesListPresentabl
         fatalError("init(coder:) has not been implemented")
     }
     
+    static func make<ListViewModel>(with viewModel: ListViewModel) -> ArticlesListViewController {
+        let vc = ArticlesListViewController()
+        
+        if #available(iOS 13, *) {
+            let hostVC = UIHostingController(rootView: ArticlesListView(items: [], viewModel: viewModel as! ArticlesListViewModelObject))
+            vc.addChild(hostVC)
+            hostVC.didMove(toParent: vc)
+            vc.view.addSubview(hostVC.view)
+            return vc
+        }
+        vc.viewModel = viewModel as? ArticlesListViewModel
+        return vc
+    }
+    
     // MARK: - VC Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,6 +104,10 @@ final class ArticlesListViewController: UIViewController, ArticlesListPresentabl
     
     // MARK: - ArticlesListPresentable
     
+    func configure<ViewModel>(viewModel: ViewModel) where ViewModel : ListViewModel {
+        self.viewModel = viewModel as? ArticlesListViewModel
+    }
+    
     func showActivityIndicator() {
         activityIndicator.startAnimating()
     }
@@ -104,9 +121,7 @@ final class ArticlesListViewController: UIViewController, ArticlesListPresentabl
         }
     }
     
-    func showError(message: String) {
-        
-    }
+    func showError(message: String) { }
     
     func reloadTableView() {
         DispatchQueue.main.async {

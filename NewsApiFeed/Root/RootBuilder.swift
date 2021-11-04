@@ -16,20 +16,24 @@ protocol RootDependency: Dependency {
 final class RootComponent: Component<RootDependency> {
      
     let rootViewController: RootViewController
-    let articleListViewController: ArticlesListViewController
+    let articleListViewController: ArticlesListViewControllable
     var articlesPageController: ArticlesPagingViewController
     
     let articlesFetcher: ArticleFetcher
     
+    let viewModel: ViewModel
+    
      init(dependency: RootDependency,
           rootViewController: RootViewController,
-          articlesListController: ArticlesListViewController,
+          articlesListController: ArticlesListViewControllable,
           articlesPageController: ArticlesPagingViewController,
-          articlesFetcher: ArticleFetcher) {
+          articlesFetcher: ArticleFetcher,
+          viewModel: ViewModel) {
         self.rootViewController = rootViewController
         self.articleListViewController = articlesListController
         self.articlesPageController = articlesPageController
         self.articlesFetcher = articlesFetcher
+         self.viewModel = viewModel
         super.init(dependency: dependency)
     }
     // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
@@ -48,18 +52,37 @@ final class RootBuilder: Builder<RootDependency>, RootBuildable {
     }
 
     func build() -> LaunchRouting {
-        let articlesListController = ArticlesListViewController()
+
         let articlesPageController = ArticlesPagingViewController()
         let tabBarController = RootViewController()
+        let viewModel: ViewModel = {
+            if #available(iOS 13, *) {
+                return ArticlesListViewModelObject() as ViewModel
+            }
+            return ArticlesListViewModel() as ViewModel
+        }()
+        
+        let articlesListController: ArticlesListViewControllable = {
+            if #available(iOS 13, *) {
+                return ArticlesListController(rootView: ArticlesListView(viewModel: viewModel as! ArticlesListViewModelObject))
+            }
+            return ArticlesListViewController()
+        }()
         
         let component = RootComponent(dependency: dependency,
                                       rootViewController: tabBarController,
                                       articlesListController: articlesListController,
                                       articlesPageController: articlesPageController,
-                                      articlesFetcher: ArticlesFetcherImpl(webservice: NetWorker()))
-        let articlesListNavController = UINavigationController(rootViewController: articlesListController)
+                                      articlesFetcher: ArticlesFetcherImpl(webservice: NetWorker()),
+                                      viewModel: viewModel)
+        let articlesListNavController = UINavigationController(rootViewController: articlesListController.uiviewController)
         let pagingNavController = UINavigationController(rootViewController: articlesPageController)
-        tabBarController.viewControllers = [articlesListNavController, pagingNavController]
+        tabBarController.viewControllers = {
+            if #available(iOS 13, *) {
+                return [articlesListController.uiviewController, pagingNavController]
+            }
+            return [articlesListNavController, pagingNavController]
+        }()
         let interactor = RootInteractor(presenter: tabBarController)
         let articlesListBuilder = ArticlesListBuilder(dependency: component)
         let articlesPagingBuilder = ArticlesPagingBuilder(dependency: component)

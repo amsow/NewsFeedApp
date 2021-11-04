@@ -7,8 +7,10 @@
 
 import Foundation
 
-protocol ListViewModel: AnyObject {
-    associatedtype Item
+protocol ViewModel: AnyObject {}
+
+protocol ListViewModel: ViewModel {
+    associatedtype Item: Array<Any>.Element
     var items: [Item] { get set }
 }
 
@@ -31,13 +33,6 @@ final class ArticlesListViewModel: ListViewModel {
     
      init() { }
 }
-
-struct ListViewModeling<Item> {
-    var items: [Item]
-    var numberOfItems: () -> Int
-    var itemAtIndex: (Int) -> Item?
-}
-
 
 @available(iOS 13.0, *)
 final class ArticlesListViewModelObject: ObservableObject, ListViewModel {

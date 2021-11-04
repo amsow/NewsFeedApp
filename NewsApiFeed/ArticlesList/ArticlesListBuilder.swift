@@ -7,16 +7,20 @@
 
 import RIBs
 import UIKit
+import SwiftUI
 
 protocol ArticlesListDependency: ArticleDetailDependency {
-    var articleListViewController: ArticlesListViewController { get }
+    var articleListViewController: ArticlesListViewControllable { get }
+    var viewModel: ViewModel { get }
     var articlesFetcher: ArticleFetcher { get }
 }
 
 final class ArticlesListComponent: Component<ArticlesListDependency> {
     
     // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
-    
+    fileprivate var articlesListViewController: ArticlesListViewControllable {
+        return dependency.articleListViewController
+    }
 }
 
 // MARK: - Builder
@@ -26,20 +30,43 @@ protocol ArticlesListBuildable: Buildable {
 }
 
 final class ArticlesListBuilder: Builder<ArticlesListDependency>, ArticlesListBuildable {
-
+    
     override init(dependency: ArticlesListDependency) {
         super.init(dependency: dependency)
     }
-
+    
     func build(withListener listener: ArticlesListListener) -> ArticlesListRouting {
-        let _ = ArticlesListComponent(dependency: dependency)
-        let viewController = dependency.articleListViewController
-        let interactor = ArticlesListInteractor(presenter: viewController,
-                                                viewModel: ArticlesListViewModel(),
-                                                articlesFetcher: dependency.articlesFetcher)
+        let component = ArticlesListComponent(dependency: dependency)
+        let interactor = getArticlesListInteractor()
         let articleDetailBuilder = ArticleDetailBuilder(dependency: dependency)
         interactor.listener = listener
-        viewController.viewModel = interactor.viewModel
-        return ArticlesListRouter(interactor: interactor, viewController: viewController, articleDetailBuilder: articleDetailBuilder)
+        return ArticlesListRouter(interactor: interactor,
+                                  viewController: component.articlesListViewController,
+                                  articleDetailBuilder: articleDetailBuilder)
     }
+    
+    private func getArticlesListInteractor() ->  ArticlesListInteractor {
+        
+        if #available(iOS 13, *) {
+//            let viewModel = ArticlesListViewModelObject()
+//            let articlesListView = ArticlesListView(items: [], viewModel: viewModel)
+//            let viewController = ArticlesListController(rootView: articlesListView)
+            
+            let interactor = ArticlesListInteractor(presenter: dependency.articleListViewController as! ListPresentable,
+                                                    articlesFetcher: dependency.articlesFetcher)
+            interactor.viewModelObject = dependency.viewModel as! ArticlesListViewModelObject
+            print("ViewModel object ===> \(interactor.viewModelObject)")
+            return interactor
+            
+        } else {
+            let viewModel = ArticlesListViewModel()
+            let viewController = ArticlesListViewController.make(with: viewModel)
+            let interactor = ArticlesListInteractor(presenter: viewController,
+                                                    articlesFetcher: dependency.articlesFetcher)
+            interactor.viewModel = viewModel
+            
+            return interactor
+        }
+    }
+    
 }

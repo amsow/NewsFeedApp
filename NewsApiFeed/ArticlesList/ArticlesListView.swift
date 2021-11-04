@@ -17,16 +17,13 @@ struct ArticlesListView: View {
     
     var body: some View {
         NavigationView {
-            List(items, id: \.self) { article in
-                NavigationLink {
-                    
-                } label: {
-                    ArticleItemCell(title: "Article Item title", description: "Description")
+            List(viewModel.items, id: \.id) { article in
+                NavigationLink(destination: EmptyView()) {
+                    ArticleItemView(title: article.title!, description: article.description!)
                         .frame(height: 80, alignment: .leading)
                 }
-                
+                //.buttonStyle(PlainButtonStyle())
             }
-        
             .navigationBarTitle(Text("News"))
         }
     }
@@ -39,10 +36,13 @@ struct ArticleItemView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 3) {
-            Text("Text for item \(title)")
+            Text(title)
                 .font(.system(size: 20))
                 .fontWeight(.medium)
-            Text("Description for item \(description)")
+                .lineLimit(1)
+            Text(description)
+                .font(.system(size: 16))
+                .lineLimit(1)
         }
         .frame(height: 80, alignment: .leading)
     }
@@ -50,9 +50,10 @@ struct ArticleItemView: View {
 
 @available(iOS 13.0.0, *)
 struct ArticlesListView_Previews: PreviewProvider {
-    static var items = ["1", "2", "3", "4", "5", "6", "0", "3"]
+    
+    static var viewModel = ArticlesListViewModelObject()
     
     static var previews: some View {
-        ArticlesListView(items: items, viewModel: ArticlesListViewModelObject())
+        ArticlesListView(items: [], viewModel: viewModel)
     }
 }
