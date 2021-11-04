@@ -18,8 +18,6 @@ struct ArticleDetailView: View {
                 AsyncImage(url: article.imageUrl) { image in
                     image
                         .resizable()
-                        //.scaledToFill()
-                        //.clipped()
                 } placeholder: {
                     Image("news_placeholder")
                         .resizable()
@@ -33,8 +31,12 @@ struct ArticleDetailView: View {
         
             VStack(alignment: .leading, spacing: 5) {
                 Text(article.title!)
-                    .font(.headline)
+                    .font(.title)
+                    .fontWeight(.medium)
+                    
                 Text(article.description!)
+                    .font(.system(size: 22))
+                    
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.leading, 8)
@@ -43,7 +45,9 @@ struct ArticleDetailView: View {
             }
             Spacer()
         }
+        .navigationBarTitle(Text(article.source?.name ?? ""))
     }
+        
 }
 
 @available(iOS 13.0.0, *)
