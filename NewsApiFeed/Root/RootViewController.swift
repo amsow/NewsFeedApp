@@ -17,7 +17,7 @@ protocol RootPresentableListener: AnyObject {
 }
 
 final class RootViewController: UITabBarController, RootPresentable, RootViewControllable {
-
+    
     weak var listener: RootPresentableListener?
     
     init() {
@@ -28,21 +28,17 @@ final class RootViewController: UITabBarController, RootPresentable, RootViewCon
         fatalError("init(coder:) has not been implemented")
     }
     
-    static func make<ViewModel: ListViewModel>(withListViewModel viewModel: ViewModel) -> RootViewController {
+    @available(iOS 13, *)
+    static func make<ListViewContent: View, DetailViewContent: View>(withChildViews articleListView: () -> ListViewContent,
+                                                                     articleDetailView: () -> DetailViewContent) -> RootViewController {
         let rootVC = RootViewController()
-        if #available(iOS 13, *) {
-            let rootTabView = RootTabView {
-                ArticlesListView(viewModel: viewModel as! ArticlesListViewModelObject)
-            } detail: {
-                ArticleDetailView(article: Article.fake)
-            }
-          let hostVC = UIHostingController(rootView: rootTabView)
-            rootVC.addChild(hostVC)
-            rootVC.view.addSubview(hostVC.view)
-            hostVC.view?.frame = rootVC.view.frame
-            hostVC.didMove(toParent: rootVC)
-            return rootVC
-        }
+        let rootTabView = RootTabView(list: articleListView, detail: articleListView)
+        let hostVC = rootTabView.viewController
+        rootVC.addChild(hostVC)
+        rootVC.view.addSubview(hostVC.view)
+        hostVC.view?.frame = rootVC.view.frame
+        hostVC.didMove(toParent: rootVC)
+        
         return rootVC
     }
     

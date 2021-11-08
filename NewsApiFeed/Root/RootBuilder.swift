@@ -72,16 +72,17 @@ final class RootBuilder: Builder<RootDependency>, RootBuildable {
             }
             return ArticlesListViewModel()
         }()
-        let tabBarController = RootViewController()
+        let rootController = RootViewController()
+        //RootViewController.make(withListViewModel: viewModel)
         let articlesListController = ArticlesListViewController.make(with: viewModel)
         let articlesPageController = ArticlesPagingViewController()
         
         let childViewControllers: [ViewControllable] = [articlesListController, articlesPageController]
         
-        tabBarController.setViewControllers(childViewControllers)
+        rootController.setViewControllers(childViewControllers)
         
         let component = RootComponent(dependency: dependency,
-                                      rootViewController: tabBarController,
+                                      rootViewController: rootController,
                                       articlesListController: articlesListController,
                                       articlesPageController: articlesPageController,
                                       articlesFetcher: ArticlesFetcherImpl(webservice: NetWorker()),
