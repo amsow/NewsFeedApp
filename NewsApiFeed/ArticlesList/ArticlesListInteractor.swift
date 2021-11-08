@@ -72,12 +72,6 @@ final class ArticlesListInteractor: PresentableInteractor<ListPresentable>, Arti
     
     override func didBecomeActive() {
         super.didBecomeActive()
-        if #available(iOS 13, *) {
-          //  presenter
-           // presenter.configure(viewModel: viewModelObject)
-        } else {
-          //  presenter.configure(viewModel: viewModel)
-        }
         loadTopHeadlinesArticles()
     }
     
@@ -89,28 +83,25 @@ final class ArticlesListInteractor: PresentableInteractor<ListPresentable>, Arti
     }
     
     private func loadTopHeadlinesArticles() {
-//        if #available(iOS 13, *) {
-//           getNewsRequestCancellable = articlesFetcher.fetchArticles()
-//                .sink(receiveCompletion: { print("Completion ==> \($0)") },
-//                      receiveValue: { [weak self] articles in
-//                    self?.setArticles(with: articles)
-//                })
-//    //    } else { // Fallback for older version than iOS 13
+        if #available(iOS 13, *) {
+           getNewsRequestCancellable = articlesFetcher.fetchArticles()
+                .sink(receiveCompletion: { print("Completion ==> \($0)") },
+                      receiveValue: { [weak self] articles in
+                    self?.setArticles(with: articles)
+                })
+        } else { // Fallback for older version than iOS 13
             if self.viewModel.items.isEmpty { presenter.showActivityIndicator() }
             articlesFetcher.fetchArticles { [weak self] result in
                 self?.presenter.hideActivityIndicator()
                 switch result {
                     case .success(let articles):
                         self?.setArticles(with: articles)
-                        DispatchQueue.main.async {
-                            self?.listener?.didFinishLoadingArticles(articles: articles)
-                        }
-                       self?.presenter.reloadListView()
+                        self?.presenter.reloadListView()
                     case .failure: break
                        // self?.presenter.showError(message: error.localizedDescription)
                 }
             }
-       // }
+        }
     }
     
     private func setArticles(with items: [Article]) {
@@ -119,6 +110,7 @@ final class ArticlesListInteractor: PresentableInteractor<ListPresentable>, Arti
         } else {
         self.viewModel.items = items
         }
+        listener?.didFinishLoadingArticles(articles: items)
     }
 }
 

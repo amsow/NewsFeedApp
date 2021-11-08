@@ -47,24 +47,22 @@ final class ArticlesListBuilder: Builder<ArticlesListDependency>, ArticlesListBu
     
     private func getArticlesListInteractor() -> ArticlesListInteractor {
         
-//        if #available(iOS 13, *) {
-//
-//            let interactor = ArticlesListInteractor(presenter: dependency.articleListViewController as! ListPresentable,
-//                                                    articlesFetcher: dependency.articlesFetcher)
-//            interactor.viewModelObject = dependency.viewModel as! ArticlesListViewModelObject
-//            print("ViewModel object ===> \(interactor.viewModelObject)")
-//            return interactor
-//
-//        } else {
-           // let viewModel = ArticlesListViewModel()
+        if #available(iOS 13, *) {
+            
+            let interactor = ArticlesListInteractor(presenter: dependency.articleListViewController as! ListPresentable,
+                                                    articlesFetcher: dependency.articlesFetcher)
+            interactor.viewModelObject = dependency.viewModel as! ArticlesListViewModelObject
+            print("ViewModel object ===> \(interactor.viewModelObject)")
+            return interactor
+            
+        } else {
             let viewController = dependency.articleListViewController
             let interactor = ArticlesListInteractor(presenter: viewController as! ListPresentable,
                                                     articlesFetcher: dependency.articlesFetcher)
             interactor.viewModel = dependency.viewModel as! ArticlesListViewModel
-            //viewModel
             
             return interactor
-    //    }
+        }
     }
     
 }

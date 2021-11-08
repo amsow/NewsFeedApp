@@ -63,15 +63,15 @@ final class ArticlesListViewController: UIViewController, ArticlesListPresentabl
     static func make<ListViewModel>(with viewModel: ListViewModel) -> ArticlesListViewController {
         let vc = ArticlesListViewController()
         
-//        if #available(iOS 13, *) {
-//            let articlesListView = ArticlesListView(viewModel: viewModel as! ArticlesListViewModelObject)
-//            let hostVC = articlesListView.viewController
-//            vc.addChild(hostVC)
-//            hostVC.view.frame = vc.view.frame
-//            vc.view.addSubview(hostVC.view)
-//            hostVC.didMove(toParent: vc)
-//            return vc
-//        }
+        if #available(iOS 13, *) {
+            let articlesListView = ArticlesListView(viewModel: viewModel as! ArticlesListViewModelObject)
+            let hostVC = articlesListView.viewController
+            vc.addChild(hostVC)
+            hostVC.view.frame = vc.view.frame
+            vc.view.addSubview(hostVC.view)
+            hostVC.didMove(toParent: vc)
+            return vc
+        }
         vc.viewModel = viewModel as? ArticlesListViewModel
         return vc
     }
@@ -81,11 +81,11 @@ final class ArticlesListViewController: UIViewController, ArticlesListPresentabl
         super.viewDidLoad()
         title = "TableView"
         navigationItem.title = "New list"
-//        if #available(iOS 13, *) {
-//
-//        } else {
+        if #available(iOS 13, *) {
+            
+        } else {
             setupView()
-      //  }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

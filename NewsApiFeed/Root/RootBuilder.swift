@@ -88,9 +88,9 @@ final class RootBuilder: Builder<RootDependency>, RootBuildable {
     // MARK: - Private
     private func makeRootComponent() -> RootComponent {
         let viewModel: ViewModel = {
-//            if #available(iOS 13, *) {
-//                return ArticlesListViewModelObject()
-//            }
+            if #available(iOS 13, *) {
+                return ArticlesListViewModelObject()
+            }
             return ArticlesListViewModel()
         }()
         let tabBarController = RootViewController()
