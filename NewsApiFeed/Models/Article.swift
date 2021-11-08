@@ -45,4 +45,7 @@ extension Article: Decodable {
 
 extension Article {
     static let empty = Self(title: nil, description: nil, url: nil, imageUrl: nil, publishedAt: nil, source: nil)
+    static let fake = Self(title: "Qualcomm Stock Rises on Strong Earnings - Barron\'s",
+                              description: "The provider of mobile phone chips said revenue was up 43% from a year ago, easily beating Wall Street estimates.\nThe provider of mobile phone chips said revenue was up 43% from a year ago, easily beating Wall Street estimates.",
+                              url: URL(string: "https://www.barrons.com/articles/qualcomm-stock-price-earnings-smartphone-demand-51635973720"), imageUrl: URL(string: "https://images.barrons.com/im-428307/social"), publishedAt: nil, source: nil)
 }
