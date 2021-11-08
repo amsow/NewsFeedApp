@@ -20,7 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let router = RootBuilder(dependency: AppComponent()).build()
         self.launchRouter = router
         router.launch(from: window)
+        silentLayoutConstraintIssues()
         return true
+    }
+    
+    private func silentLayoutConstraintIssues() {
+        UserDefaults.standard.set(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
     }
 
 }
