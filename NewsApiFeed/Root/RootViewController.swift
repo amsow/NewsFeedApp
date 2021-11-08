@@ -32,11 +32,10 @@ final class RootViewController: UITabBarController, RootPresentable, RootViewCon
     static func make<ListViewContent: View, DetailViewContent: View>(withChildViews articleListView: () -> ListViewContent,
                                                                      articleDetailView: () -> DetailViewContent) -> RootViewController {
         let rootVC = RootViewController()
-        let rootTabView = RootTabView(list: articleListView, detail: articleListView)
+        let rootTabView = RootTabView(list: articleListView, detail: articleDetailView)
         let hostVC = rootTabView.viewController
         rootVC.addChild(hostVC)
         rootVC.view.addSubview(hostVC.view)
-        hostVC.view?.frame = rootVC.view.frame
         hostVC.didMove(toParent: rootVC)
         
         return rootVC

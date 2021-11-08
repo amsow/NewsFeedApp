@@ -72,14 +72,17 @@ final class RootBuilder: Builder<RootDependency>, RootBuildable {
             }
             return ArticlesListViewModel()
         }()
-        let rootController = RootViewController()
-        //RootViewController.make(withListViewModel: viewModel)
+       
         let articlesListController = ArticlesListViewController.make(with: viewModel)
         let articlesPageController = ArticlesPagingViewController()
         
-        let childViewControllers: [ViewControllable] = [articlesListController, articlesPageController]
+        let rootController = makeRootViewController(viewModel: viewModel)
         
-        rootController.setViewControllers(childViewControllers)
+        if #available(iOS 13, *) { }
+        else {
+            let childViewControllers: [ViewControllable] = [articlesListController, articlesPageController]
+            rootController.setViewControllers(childViewControllers)
+        }
         
         let component = RootComponent(dependency: dependency,
                                       rootViewController: rootController,
@@ -88,5 +91,17 @@ final class RootBuilder: Builder<RootDependency>, RootBuildable {
                                       articlesFetcher: ArticlesFetcherImpl(webservice: NetWorker()),
                                       viewModel: viewModel)
         return component
+    }
+    
+    private func makeRootViewController(viewModel: ViewModel) -> RootViewController {
+        
+        if #available(iOS 13, *) {
+            let articlesListView = ArticlesListView(viewModel: viewModel as! ArticlesListViewModelObject)
+            let articleDetailView = ArticleDetailView(article: Article.fake)
+            let rootViewController = RootViewController.make(withChildViews: { articlesListView }, articleDetailView: { articleDetailView })
+            return rootViewController
+        }
+        
+        return RootViewController()
     }
 }
