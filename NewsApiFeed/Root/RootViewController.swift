@@ -51,8 +51,9 @@ final class RootViewController: UITabBarController, RootPresentable, RootViewCon
         view.backgroundColor = .white
     }
     
-    func setViewControllers(_ viewControllers: [UIViewController]) {
-        self.viewControllers = viewControllers
+    // MARK: - RootViewControllable
+    func setViewControllers(_ viewControllers: [ViewControllable]) {
+        self.viewControllers = viewControllers.map { $0.uiviewController }
     }
 }
 

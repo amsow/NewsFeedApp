@@ -82,6 +82,7 @@ final class ArticlesListInteractor: PresentableInteractor<ListPresentable>, Arti
         }
     }
     
+    // MARK: - Private 
     private func loadTopHeadlinesArticles() {
         if #available(iOS 13, *) {
            getNewsRequestCancellable = articlesFetcher.fetchArticles()

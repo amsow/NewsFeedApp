@@ -16,6 +16,7 @@ protocol RootInteractable: Interactable, ArticlesListListener, ArticlesPagingLis
 
 protocol RootViewControllable: ViewControllable {
     // TODO: Declare methods the router invokes to manipulate the view hierarchy.
+    func setViewControllers(_ viewControllers: [ViewControllable])
 }
 
 final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, RootRouting {
