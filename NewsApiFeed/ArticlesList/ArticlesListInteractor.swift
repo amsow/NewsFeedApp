@@ -20,13 +20,13 @@ protocol ListPresentable: Presentable {
     var listener: ArticlesListPresentableListener? { get set }
     func showActivityIndicator()
     func hideActivityIndicator()
+    func reloadListView()
 }
 
 protocol ArticlesListPresentable: ListPresentable {
     //var listener: ArticlesListPresentableListener? { get set }
     //var viewModel: ArticlesListViewModel { get set }
     func showError(message: String)
-    func reloadTableView()
 }
 
 /// Use this protocol while dealing with SwiftUI instead the `ArticlesListPresentable`
@@ -93,10 +93,9 @@ final class ArticlesListInteractor: PresentableInteractor<ListPresentable>, Arti
            getNewsRequestCancellable = articlesFetcher.fetchArticles()
                 .sink(receiveCompletion: { print("Completion ==> \($0)") },
                       receiveValue: { [weak self] articles in
-                    print("Articles ==>\n\(articles)")
                     self?.setArticles(with: articles)
                 })
-        } else { // For older version than iOS 13
+        } else { // Fallback for older version than iOS 13
             if self.viewModel.items.isEmpty { presenter.showActivityIndicator() }
             articlesFetcher.fetchArticles { [weak self] result in
                 self?.presenter.hideActivityIndicator()
@@ -106,9 +105,9 @@ final class ArticlesListInteractor: PresentableInteractor<ListPresentable>, Arti
                         DispatchQueue.main.async {
                             self?.listener?.didFinishLoadingArticles(articles: articles)
                         }
-                    //    self?.presenter.reloadTableView()
-                    case .failure(let error): break
-                    //    self?.presenter.showError(message: error.localizedDescription)
+                       self?.presenter.reloadListView()
+                    case .failure: break
+                       // self?.presenter.showError(message: error.localizedDescription)
                 }
             }
         }

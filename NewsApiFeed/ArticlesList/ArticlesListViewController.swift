@@ -59,6 +59,7 @@ final class ArticlesListViewController: UIViewController, ArticlesListPresentabl
         fatalError("init(coder:) has not been implemented")
     }
     
+    // Make this static constructor for our viewController based on the ViewModel type
     static func make<ListViewModel>(with viewModel: ListViewModel) -> ArticlesListViewController {
         let vc = ArticlesListViewController()
         
@@ -128,7 +129,7 @@ final class ArticlesListViewController: UIViewController, ArticlesListPresentabl
     
     func showError(message: String) { }
     
-    func reloadTableView() {
+    func reloadListView() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }

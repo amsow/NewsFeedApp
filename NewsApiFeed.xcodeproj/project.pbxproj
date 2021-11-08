@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2817CE082731804E00A18836 /* ArticlesListController+UIHostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2817CE072731804D00A18836 /* ArticlesListController+UIHostViewController.swift */; };
 		2817CE0B27341C0E00A18836 /* View+ViewControllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2817CE0A27341C0D00A18836 /* View+ViewControllable.swift */; };
 		28357682272DA3F1009D9E09 /* ArticlesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28357681272DA3F1009D9E09 /* ArticlesListView.swift */; };
 		28357684272DC36E009D9E09 /* ArticleDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28357683272DC36E009D9E09 /* ArticleDetailView.swift */; };
@@ -44,7 +43,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2817CE072731804D00A18836 /* ArticlesListController+UIHostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticlesListController+UIHostViewController.swift"; sourceTree = "<group>"; };
 		2817CE0A27341C0D00A18836 /* View+ViewControllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+ViewControllable.swift"; sourceTree = "<group>"; };
 		28357681272DA3F1009D9E09 /* ArticlesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesListView.swift; sourceTree = "<group>"; };
 		28357683272DC36E009D9E09 /* ArticleDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailView.swift; sourceTree = "<group>"; };
@@ -174,7 +172,6 @@
 				2844E47C27249EE1005FC882 /* ArticlesListInteractor.swift */,
 				285351A3272C75FC00C630E5 /* ArticlesListViewModel.swift */,
 				28357681272DA3F1009D9E09 /* ArticlesListView.swift */,
-				2817CE072731804D00A18836 /* ArticlesListController+UIHostViewController.swift */,
 			);
 			path = ArticlesList;
 			sourceTree = "<group>";
@@ -304,7 +301,6 @@
 				2844E50F272B0502005FC882 /* ArticleDetailInteractor.swift in Sources */,
 				28357682272DA3F1009D9E09 /* ArticlesListView.swift in Sources */,
 				2844E4A12725DD0B005FC882 /* Dispatcher.swift in Sources */,
-				2817CE082731804E00A18836 /* ArticlesListController+UIHostViewController.swift in Sources */,
 				2844E48027249EE1005FC882 /* ArticlesListInteractor.swift in Sources */,
 				28357684272DC36E009D9E09 /* ArticleDetailView.swift in Sources */,
 				2844E4D8272839E1005FC882 /* Article.swift in Sources */,
