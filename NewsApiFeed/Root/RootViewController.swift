@@ -34,6 +34,6 @@ final class RootViewController: UITabBarController, RootPresentable, RootViewCon
     
     func setViewControllers(_ viewControllers: [UIViewController]) {
         self.viewControllers = viewControllers
-        
     }
 }
+

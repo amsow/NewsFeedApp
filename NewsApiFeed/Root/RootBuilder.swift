@@ -72,13 +72,8 @@ final class RootBuilder: Builder<RootDependency>, RootBuildable {
                                       viewModel: viewModel)
         let articlesListNavController = UINavigationController(rootViewController: articlesListController.uiviewController)
         let pagingNavController = UINavigationController(rootViewController: articlesPageController)
-        tabBarController.viewControllers = {
-            if #available(iOS 13, *) {
-                return [articlesListController.uiviewController, pagingNavController]
-            }
-            return [articlesListNavController, pagingNavController]
-        }()
-        
+        tabBarController.setViewControllers([articlesListNavController, pagingNavController])
+
         let interactor = RootInteractor(presenter: tabBarController)
         let articlesListBuilder = ArticlesListBuilder(dependency: component)
         let articlesPagingBuilder = ArticlesPagingBuilder(dependency: component)
