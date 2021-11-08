@@ -12,7 +12,7 @@ import RIBs
 @available(iOS 13.0.0, *)
 
 struct ArticlesListView: View {
-    var items = ["1", "2", "3", "4", "5"]
+    
     @ObservedObject var viewModel: ArticlesListViewModelObject
     
     var body: some View {
@@ -26,8 +26,9 @@ struct ArticlesListView: View {
             }
             .navigationBarTitle(Text("News"))
         }
-        
+        .background(Color.red)
     }
+        
 }
 
 @available(iOS 13.0.0, *)
@@ -55,6 +56,6 @@ struct ArticlesListView_Previews: PreviewProvider {
     static var viewModel = ArticlesListViewModelObject()
     
     static var previews: some View {
-        ArticlesListView(items: [], viewModel: viewModel)
+        ArticlesListView(viewModel: viewModel)
     }
 }

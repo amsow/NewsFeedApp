@@ -45,7 +45,7 @@ final class ArticlesListBuilder: Builder<ArticlesListDependency>, ArticlesListBu
                                   articleDetailBuilder: articleDetailBuilder)
     }
     
-    private func getArticlesListInteractor() ->  ArticlesListInteractor {
+    private func getArticlesListInteractor() -> ArticlesListInteractor {
         
         if #available(iOS 13, *) {
 //            let viewModel = ArticlesListViewModelObject()

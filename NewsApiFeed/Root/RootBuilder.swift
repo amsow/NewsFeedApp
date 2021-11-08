@@ -57,17 +57,12 @@ final class RootBuilder: Builder<RootDependency>, RootBuildable {
         let tabBarController = RootViewController()
         let viewModel: ViewModel = {
             if #available(iOS 13, *) {
-                return ArticlesListViewModelObject() as ViewModel
+                return ArticlesListViewModelObject()
             }
-            return ArticlesListViewModel() as ViewModel
+            return ArticlesListViewModel()
         }()
         
-        let articlesListController: ArticlesListViewControllable = {
-            if #available(iOS 13, *) {
-                return ArticlesListController(rootView: ArticlesListView(viewModel: viewModel as! ArticlesListViewModelObject))
-            }
-            return ArticlesListViewController()
-        }()
+        let articlesListController = ArticlesListViewController.make(with: viewModel)
         
         let component = RootComponent(dependency: dependency,
                                       rootViewController: tabBarController,
@@ -83,6 +78,7 @@ final class RootBuilder: Builder<RootDependency>, RootBuildable {
             }
             return [articlesListNavController, pagingNavController]
         }()
+        
         let interactor = RootInteractor(presenter: tabBarController)
         let articlesListBuilder = ArticlesListBuilder(dependency: component)
         let articlesPagingBuilder = ArticlesPagingBuilder(dependency: component)

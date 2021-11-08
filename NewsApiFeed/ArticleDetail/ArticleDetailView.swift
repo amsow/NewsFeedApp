@@ -22,6 +22,7 @@ struct ArticleDetailView: View {
                     Image("news_placeholder")
                         .resizable()
                 }
+                .scaledToFill()
                 .frame(height: 300, alignment: .center)
             } else {
                 Image(article.imageUrl!.absoluteString).resizable() //"news_placeholder"

@@ -51,7 +51,7 @@ final class ArticlesListViewController: UIViewController, ArticlesListPresentabl
         return refresh
     }()
     
-    init() {
+    private init() {
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -63,10 +63,11 @@ final class ArticlesListViewController: UIViewController, ArticlesListPresentabl
         let vc = ArticlesListViewController()
         
         if #available(iOS 13, *) {
-            let hostVC = UIHostingController(rootView: ArticlesListView(items: [], viewModel: viewModel as! ArticlesListViewModelObject))
+            let hostVC = UIHostingController(rootView: ArticlesListView(viewModel: viewModel as! ArticlesListViewModelObject))
             vc.addChild(hostVC)
-            hostVC.didMove(toParent: vc)
+            hostVC.view.frame = vc.view.frame
             vc.view.addSubview(hostVC.view)
+            hostVC.didMove(toParent: vc)
             return vc
         }
         vc.viewModel = viewModel as? ArticlesListViewModel
@@ -78,7 +79,11 @@ final class ArticlesListViewController: UIViewController, ArticlesListPresentabl
         super.viewDidLoad()
         title = "TableView"
         navigationItem.title = "New list"
-        setupView()
+        if #available(iOS 13, *) {
+            
+        } else {
+            setupView()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -177,7 +182,7 @@ final class ArticleItemCell: UITableViewCell {
 @available(iOS 13, *)
 extension ArticleItemCell: UIViewRepresentable {
     
-    typealias UIViewType = UITableViewCell
+    //typealias UIViewType = UITableViewCell
     
     convenience init(title: String, description: String) {
         self.init(style: .subtitle, reuseIdentifier: nil)

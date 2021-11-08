@@ -8,10 +8,6 @@
 import Foundation
 import Combine
 
-struct FetchArticlesRequestResponse<Wrapped: Decodable>: Decodable {
-    let articles: Wrapped
-}
-
 enum NetworkingError: Error {
     case noData
 }
