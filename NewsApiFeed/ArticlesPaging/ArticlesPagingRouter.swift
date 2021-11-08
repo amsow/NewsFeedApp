@@ -22,6 +22,8 @@ final class ArticlesPagingRouter: ViewableRouter<ArticlesPagingInteractable, Art
     // TODO: Constructor inject child builder protocols to allow building children.
     private let articleDetailsBuilder: ArticleDetailBuildable
     
+    private var articleDetailRouters: [ArticleDetailRouting]?
+    
     init(interactor: ArticlesPagingInteractable,
                   viewController: ArticlesPagingViewControllable,
                   articleDetailsBuilder: ArticleDetailBuildable) {
@@ -38,8 +40,17 @@ final class ArticlesPagingRouter: ViewableRouter<ArticlesPagingInteractable, Art
     
     // MARK: - Routing
     func attachArticlesDetails(articles: [Article]) {
+        detachArticleDetailRoutings()
         let routers = articles.map { articleDetailsBuilder.build(withListener: interactor, article: $0) }
+        articleDetailRouters = routers
         routers.forEach(attachChild)
         viewController.setViewControllers(routers.map { $0.viewControllable })
+    }
+    
+    private func detachArticleDetailRoutings() {
+        if let articleDetailRouters = articleDetailRouters {
+            articleDetailRouters.forEach(detachChild)
+            viewController.setViewControllers([])
+        }
     }
 }

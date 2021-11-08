@@ -45,14 +45,20 @@ final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, Ro
     
     func attachArticlesPaging(with articles: [Article]) {
         print("****** Articles count ==> \(articles.count)")
-        let articlesPagingRouter = articlesPagingBuilder.build(withListener: interactor, articles: articles)
-        attachChild(articlesPagingRouter)
+        let router = articlesPagingBuilder.build(withListener: interactor, articles: articles)
+        attachChild(router)
     }
     
     // MARK: - Private helpers
     private func attachArticlesList() {
         let articlesListRouter = articlesListBuilder.build(withListener: interactor)
         attachChild(articlesListRouter)
+    }
+    
+    private func detachArticlesPaging() {
+        if let articlesPagingRouter = articlesPagingRouter {
+            detachChild(articlesPagingRouter)
+        }
     }
     
 }

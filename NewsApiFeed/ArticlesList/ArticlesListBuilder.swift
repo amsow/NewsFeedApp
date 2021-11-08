@@ -47,26 +47,24 @@ final class ArticlesListBuilder: Builder<ArticlesListDependency>, ArticlesListBu
     
     private func getArticlesListInteractor() -> ArticlesListInteractor {
         
-        if #available(iOS 13, *) {
-//            let viewModel = ArticlesListViewModelObject()
-//            let articlesListView = ArticlesListView(items: [], viewModel: viewModel)
-//            let viewController = ArticlesListController(rootView: articlesListView)
-            
-            let interactor = ArticlesListInteractor(presenter: dependency.articleListViewController as! ListPresentable,
+//        if #available(iOS 13, *) {
+//
+//            let interactor = ArticlesListInteractor(presenter: dependency.articleListViewController as! ListPresentable,
+//                                                    articlesFetcher: dependency.articlesFetcher)
+//            interactor.viewModelObject = dependency.viewModel as! ArticlesListViewModelObject
+//            print("ViewModel object ===> \(interactor.viewModelObject)")
+//            return interactor
+//
+//        } else {
+           // let viewModel = ArticlesListViewModel()
+            let viewController = dependency.articleListViewController
+            let interactor = ArticlesListInteractor(presenter: viewController as! ListPresentable,
                                                     articlesFetcher: dependency.articlesFetcher)
-            interactor.viewModelObject = dependency.viewModel as! ArticlesListViewModelObject
-            print("ViewModel object ===> \(interactor.viewModelObject)")
-            return interactor
-            
-        } else {
-            let viewModel = ArticlesListViewModel()
-            let viewController = ArticlesListViewController.make(with: viewModel)
-            let interactor = ArticlesListInteractor(presenter: viewController,
-                                                    articlesFetcher: dependency.articlesFetcher)
-            interactor.viewModel = viewModel
+            interactor.viewModel = dependency.viewModel as! ArticlesListViewModel
+            //viewModel
             
             return interactor
-        }
+    //    }
     }
     
 }

@@ -89,13 +89,13 @@ final class ArticlesListInteractor: PresentableInteractor<ListPresentable>, Arti
     }
     
     private func loadTopHeadlinesArticles() {
-        if #available(iOS 13, *) {
-           getNewsRequestCancellable = articlesFetcher.fetchArticles()
-                .sink(receiveCompletion: { print("Completion ==> \($0)") },
-                      receiveValue: { [weak self] articles in
-                    self?.setArticles(with: articles)
-                })
-        } else { // Fallback for older version than iOS 13
+//        if #available(iOS 13, *) {
+//           getNewsRequestCancellable = articlesFetcher.fetchArticles()
+//                .sink(receiveCompletion: { print("Completion ==> \($0)") },
+//                      receiveValue: { [weak self] articles in
+//                    self?.setArticles(with: articles)
+//                })
+//    //    } else { // Fallback for older version than iOS 13
             if self.viewModel.items.isEmpty { presenter.showActivityIndicator() }
             articlesFetcher.fetchArticles { [weak self] result in
                 self?.presenter.hideActivityIndicator()
@@ -110,7 +110,7 @@ final class ArticlesListInteractor: PresentableInteractor<ListPresentable>, Arti
                        // self?.presenter.showError(message: error.localizedDescription)
                 }
             }
-        }
+       // }
     }
     
     private func setArticles(with items: [Article]) {

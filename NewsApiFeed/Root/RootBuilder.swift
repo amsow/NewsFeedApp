@@ -53,16 +53,60 @@ final class RootBuilder: Builder<RootDependency>, RootBuildable {
 
     func build() -> LaunchRouting {
 
-        let articlesPageController = ArticlesPagingViewController()
-        let tabBarController = RootViewController()
+//        let articlesPageController = ArticlesPagingViewController()
+//        let tabBarController = RootViewController()
+//        let viewModel: ViewModel = {
+//            if #available(iOS 13, *) {
+//                return ArticlesListViewModelObject()
+//            }
+//            return ArticlesListViewModel()
+//        }()
+//
+//        let articlesListController = ArticlesListViewController.make(with: viewModel)
+//
+//        let component = RootComponent(dependency: dependency,
+//                                      rootViewController: tabBarController,
+//                                      articlesListController: articlesListController,
+//                                      articlesPageController: articlesPageController,
+//                                      articlesFetcher: ArticlesFetcherImpl(webservice: NetWorker()),
+//                                      viewModel: viewModel)
+       // let articlesListNavController = UINavigationController(rootViewController: articlesListController.uiviewController)
+      //  let pagingNavController = UINavigationController(rootViewController: articlesPageController)
+      //  tabBarController.setViewControllers([articlesListNavController, pagingNavController])
+        
+        let component = makeRootComponent()
+
+        let interactor = RootInteractor(presenter: component.rootViewController)
+        let articlesListBuilder = ArticlesListBuilder(dependency: component)
+        let articlesPagingBuilder = ArticlesPagingBuilder(dependency: component)
+        return RootRouter(interactor: interactor,
+                          viewController: component.rootViewController,
+                          articlesListBuilder: articlesListBuilder,
+                          articlesPagingBuilder: articlesPagingBuilder)
+    }
+    
+    // MARK: - Private
+    private func makeRootComponent() -> RootComponent {
         let viewModel: ViewModel = {
-            if #available(iOS 13, *) {
-                return ArticlesListViewModelObject()
-            }
+//            if #available(iOS 13, *) {
+//                return ArticlesListViewModelObject()
+//            }
             return ArticlesListViewModel()
         }()
-        
+        let tabBarController = RootViewController()
         let articlesListController = ArticlesListViewController.make(with: viewModel)
+        let articlesPageController = ArticlesPagingViewController()
+        
+        let childViewControllers: [UIViewController] = {
+            if #available(iOS 13, *) {
+                return [articlesListController,
+                        UINavigationController(rootViewController: articlesPageController)]
+            }
+            return [articlesListController, articlesPageController].map(UINavigationController.init)
+        }()
+        
+        
+        tabBarController.setViewControllers(childViewControllers)
         
         let component = RootComponent(dependency: dependency,
                                       rootViewController: tabBarController,
@@ -70,16 +114,6 @@ final class RootBuilder: Builder<RootDependency>, RootBuildable {
                                       articlesPageController: articlesPageController,
                                       articlesFetcher: ArticlesFetcherImpl(webservice: NetWorker()),
                                       viewModel: viewModel)
-        let articlesListNavController = UINavigationController(rootViewController: articlesListController.uiviewController)
-        let pagingNavController = UINavigationController(rootViewController: articlesPageController)
-        tabBarController.setViewControllers([articlesListNavController, pagingNavController])
-
-        let interactor = RootInteractor(presenter: tabBarController)
-        let articlesListBuilder = ArticlesListBuilder(dependency: component)
-        let articlesPagingBuilder = ArticlesPagingBuilder(dependency: component)
-        return RootRouter(interactor: interactor,
-                          viewController: tabBarController,
-                          articlesListBuilder: articlesListBuilder,
-                          articlesPagingBuilder: articlesPagingBuilder)
+        return component
     }
 }

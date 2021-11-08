@@ -8,7 +8,7 @@
 import SwiftUI
 
 @available(iOS 13.0.0, *)
-struct ArticleDetailView: View {
+struct ArticleDetailView: HostableView {
     
     let article: Article
     

@@ -8,6 +8,7 @@
 import RIBs
 import RxSwift
 import UIKit
+import SwiftUI
 
 protocol RootPresentableListener: AnyObject {
     // TODO: Declare properties and methods that the view controller can invoke to perform
@@ -25,6 +26,24 @@ final class RootViewController: UITabBarController, RootPresentable, RootViewCon
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    static func make<ViewModel: ListViewModel>(withListViewModel viewModel: ViewModel) -> RootViewController {
+        let rootVC = RootViewController()
+        if #available(iOS 13, *) {
+            let rootTabView = RootTabView {
+                ArticlesListView(viewModel: viewModel as! ArticlesListViewModelObject)
+            } detail: {
+                ArticleDetailView(article: Article.fake)
+            }
+          let hostVC = UIHostingController(rootView: rootTabView)
+            rootVC.addChild(hostVC)
+            rootVC.view.addSubview(hostVC.view)
+            hostVC.view?.frame = rootVC.view.frame
+            hostVC.didMove(toParent: rootVC)
+            return rootVC
+        }
+        return rootVC
     }
     
     override func viewDidLoad() {

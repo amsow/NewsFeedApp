@@ -8,7 +8,7 @@
 import SwiftUI
 
 @available(iOS 13, *)
-struct RootTabView<List: View, Detail: View>: View {
+struct RootTabView<List: View, Detail: View>: HostableView {
     
     let articlesListView: List
     let articleDetailView: Detail

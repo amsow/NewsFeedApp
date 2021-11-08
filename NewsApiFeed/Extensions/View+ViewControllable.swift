@@ -15,3 +15,13 @@ extension ViewControllable where Self: View {
         return UIHostingController(rootView: self)
     }
 }
+
+@available(iOS 13, *)
+protocol HostableView: View { }
+
+@available(iOS 13, *)
+extension HostableView {
+    var viewController: UIViewController {
+        return UIHostingController(rootView: self)
+    }
+}

@@ -11,7 +11,7 @@ import RIBs
 
 @available(iOS 13.0.0, *)
 
-struct ArticlesListView: View {
+struct ArticlesListView: HostableView {
     
     @ObservedObject var viewModel: ArticlesListViewModelObject
     
