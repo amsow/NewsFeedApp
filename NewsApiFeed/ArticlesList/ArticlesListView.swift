@@ -19,7 +19,7 @@ struct ArticlesListView: HostableView {
         NavigationView {
             List(viewModel.items, id: \.id) { article in
                 NavigationLink(destination: ArticleDetailView(article: article)) {
-                    ArticleItemView(title: article.title!, description: article.description!)
+                    ArticleItemView(title: article.title ?? "", description: article.description ?? "")
                         .frame(height: 80, alignment: .leading)
                         .buttonStyle(PlainButtonStyle())
                 }
