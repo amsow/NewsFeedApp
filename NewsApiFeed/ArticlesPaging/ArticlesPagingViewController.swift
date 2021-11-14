@@ -71,8 +71,7 @@ extension ArticlesPagingViewController: UIPageViewControllerDataSource {
         let vc = vcs[nextIndex]
         navigationTitle = viewController.navigationItem.title
         return vc
-    }
-    
+    }    
 }
 
 extension ArticlesPagingViewController: UIPageViewControllerDelegate { }
