@@ -59,10 +59,26 @@ final class ArticleDetailViewController: UIViewController, ArticleDetailPresenta
         fatalError("init(coder:) has not been implemented")
     }
     
+    @available(iOS 13, *)
+    static func make(withArticle article: Article) -> ArticleDetailViewController {
+        let hostArticleDetailVC = ArticleDetailViewController()
+        let articleDetailView = ArticleDetailView(article: article)
+        let hostableArticleDetailController = articleDetailView.viewController
+        hostArticleDetailVC.addChild(hostableArticleDetailController)
+        hostArticleDetailVC.view.addSubview(hostableArticleDetailController.view)
+        hostableArticleDetailController.didMove(toParent: hostArticleDetailVC)
+        
+        return hostArticleDetailVC
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        setupView()
+       // if #available(iOS 13, *) {
+            // Stuff for iOS 13 and later target
+      //  } else {
+            setupView()
+      //  }
     }
     
     // MARK: - Setup View

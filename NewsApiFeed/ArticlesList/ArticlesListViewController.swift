@@ -67,8 +67,8 @@ final class ArticlesListViewController: UIViewController, ArticlesListPresentabl
             let articlesListView = ArticlesListView(viewModel: viewModel as! ArticlesListViewModelObject)
             let hostVC = articlesListView.viewController
             vc.addChild(hostVC)
-            hostVC.view.frame = vc.view.frame
             vc.view.addSubview(hostVC.view)
+            hostVC.view.frame = vc.view.frame
             hostVC.didMove(toParent: vc)
             return vc
         }
@@ -81,6 +81,7 @@ final class ArticlesListViewController: UIViewController, ArticlesListPresentabl
         super.viewDidLoad()
         title = "TableView"
         navigationItem.title = "New list"
+        view.backgroundColor = .white
         if #available(iOS 13, *) {
             
         } else {
@@ -88,16 +89,12 @@ final class ArticlesListViewController: UIViewController, ArticlesListPresentabl
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
     private func setupView() {
         view.addSubview(tableView)
         view.addSubview(activityIndicator)
         
         tableView.snp.makeConstraints { maker in
-            maker.edges.equalTo(self.view)
+            maker.edges.equalToSuperview()
         }
         
         activityIndicator.snp.makeConstraints { maker in
@@ -160,6 +157,19 @@ extension ArticlesListViewController: UITableViewDataSource, UITableViewDelegate
         listener?.didSelectArticle(at: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
     }
+}
+
+@available(iOS 13, *)
+extension ArticlesListViewController: UIViewControllerRepresentable {
+    
+    func makeUIViewController(context: Context) -> ArticlesListViewController {
+        return self
+    }
+    
+    func updateUIViewController(_ uiViewController: ArticlesListViewController, context: Context) {
+        
+    }
+    
 }
 
 final class ArticleItemCell: UITableViewCell {

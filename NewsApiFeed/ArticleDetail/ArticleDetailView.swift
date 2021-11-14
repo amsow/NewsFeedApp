@@ -18,11 +18,11 @@ struct ArticleDetailView: HostableView {
                 AsyncImage(url: article.imageUrl) { image in
                     image
                         .resizable()
+                        //.scaledToFill()
                 } placeholder: {
-                    Image("news_placeholder")
-                        .resizable()
+                    Image("news_placeholder").resizable()
                 }
-                .scaledToFill()
+                .clipped()
                 .frame(height: 300, alignment: .center)
             } else {
                 Image(article.imageUrl!.absoluteString).resizable() //"news_placeholder"

@@ -8,6 +8,7 @@
 import RIBs
 import RxSwift
 import UIKit
+import SwiftUI
 
 protocol ArticlesPagingPresentableListener: AnyObject {
     // TODO: Declare properties and methods that the view controller can invoke to perform
@@ -19,7 +20,7 @@ final class ArticlesPagingViewController: UIPageViewController, ArticlesPagingPr
    
     weak var listener: ArticlesPagingPresentableListener?
     
-    private var vcs = [UIViewController]()
+    private(set) var controllers = [UIViewController]()
     
     private var navigationTitle: String? {
         didSet { navigationItem.title = navigationTitle }
@@ -39,13 +40,12 @@ final class ArticlesPagingViewController: UIPageViewController, ArticlesPagingPr
         super.viewDidLoad()
         title = "PageView"
         dataSource = self
-        delegate = self
     }
     
     // MARK: - ArticlesPagingViewControllable
     func setViewControllers(_ viewControllers: [ViewControllable]) {
-        vcs = viewControllers.map { $0.uiviewController }
-        if let firstViewController = vcs.first {
+        controllers = viewControllers.map { $0.uiviewController }
+        if let firstViewController = controllers.first {
             setViewControllers([firstViewController], direction: .forward, animated: true)
         }
     }
@@ -54,24 +54,25 @@ final class ArticlesPagingViewController: UIPageViewController, ArticlesPagingPr
 // MARK: - UIPageViewControllerDataSource
 extension ArticlesPagingViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let index = vcs.firstIndex(of: viewController), index > 0 else {
+        guard let index = controllers.firstIndex(of: viewController), index > 0 else {
             return nil
         }
         let previousIndex = index - 1
-        let vc = vcs[previousIndex]
+        let controller = controllers[previousIndex]
         navigationTitle = viewController.navigationItem.title
-        return vc
+        return controller
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let index = vcs.firstIndex(of: viewController), index < (vcs.count - 1) else {
+        guard let index = controllers.firstIndex(of: viewController), index < (controllers.count - 1) else {
             return nil
         }
         let nextIndex = index + 1
-        let vc = vcs[nextIndex]
+        let controller = controllers[nextIndex]
         navigationTitle = viewController.navigationItem.title
-        return vc
+        return controller
     }    
 }
 
-extension ArticlesPagingViewController: UIPageViewControllerDelegate { }
+
+

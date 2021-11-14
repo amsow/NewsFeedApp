@@ -8,19 +8,21 @@
 import SwiftUI
 
 @available(iOS 13, *)
-struct ArticlesPageView<ArticleDetailView: HostableView>: View {
+struct ArticlesPageView: HostableView { //<ArticleDetailView: HostableView>
     
-    let pageViews: [ArticleDetailView]
+    //@Binding var pageViews: [ArticleDetailView]
     
     var body: some View {
-        ArticlesPageViewController(pages: pageViews)
+        ArticlesPagingViewController()
+        //ArticlesPageViewController(pages: pageViews)
     }
 }
 
 @available(iOS 13, *)
 struct ArticlesPageView_Previews: PreviewProvider {
     static var previews: some View {
-        ArticlesPageView(pageViews: [ArticleDetailView(article: Article.fake), ArticleDetailView(article: Article.fake), ArticleDetailView(article: Article.fake)])
+        //pageViews: .constant([ArticleDetailView(article: Article.fake)])
+        ArticlesPageView()
     }
 }
 
@@ -30,8 +32,8 @@ struct ArticlesPageViewController<PageView: HostableView>: UIViewControllerRepre
     
     let pages: [PageView]
     
-    func makeCoordinator() -> Coordinator {
-        return Coordinator(self)
+    func makeCoordinator() -> ArticlesPagingViewController {
+        return ArticlesPagingViewController()
     }
     
     func makeUIViewController(context: Context) -> UIPageViewController {
@@ -46,38 +48,38 @@ struct ArticlesPageViewController<PageView: HostableView>: UIViewControllerRepre
     }
 }
 
-@available(iOS 13, *)
-extension ArticlesPageViewController {
-    
-    // MARK: - Coordinator - DataSource
-    class Coordinator: NSObject, UIPageViewControllerDataSource {
-        let parent: ArticlesPageViewController
-        var controllers = [UIViewController]()
-        
-        init(_ pageViewController: ArticlesPageViewController) {
-            parent = pageViewController
-            controllers = parent.pages.map { $0.viewController }
-        }
-        
-        // MARK: - UIPageViewControllerDataSource
-        func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-            guard let index = controllers.firstIndex(of: viewController), index > 0 else {
-                return nil
-            }
-            let previousIndex = index - 1
-            let vc = controllers[previousIndex]
-           // navigationTitle = viewController.navigationItem.title
-            return vc
-        }
-        
-        func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-            guard let index = controllers.firstIndex(of: viewController), index < (controllers.count - 1) else {
-                return nil
-            }
-            let nextIndex = index + 1
-            let vc = controllers[nextIndex]
-          //  navigationTitle = viewController.navigationItem.title
-            return vc
-        }
-    }
-}
+//@available(iOS 13, *)
+//extension ArticlesPageViewController {
+//    
+//    // MARK: - Coordinator - DataSource
+//    class Coordinator: NSObject, UIPageViewControllerDataSource {
+//        let parent: ArticlesPageViewController
+//        var controllers = [UIViewController]()
+//        
+//        init(_ pageViewController: ArticlesPageViewController) {
+//            parent = pageViewController
+//            controllers = parent.pages.map { $0.viewController }
+//        }
+//        
+//        // MARK: - UIPageViewControllerDataSource
+//        func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+//            guard let index = controllers.firstIndex(of: viewController), index > 0 else {
+//                return nil
+//            }
+//            let previousIndex = index - 1
+//            let vc = controllers[previousIndex]
+//           // navigationTitle = viewController.navigationItem.title
+//            return vc
+//        }
+//        
+//        func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+//            guard let index = controllers.firstIndex(of: viewController), index < (controllers.count - 1) else {
+//                return nil
+//            }
+//            let nextIndex = index + 1
+//            let vc = controllers[nextIndex]
+//          //  navigationTitle = viewController.navigationItem.title
+//            return vc
+//        }
+//    }
+//}

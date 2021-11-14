@@ -40,6 +40,7 @@
 		2844E50E272B0502005FC882 /* ArticleDetailBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E50A272B0501005FC882 /* ArticleDetailBuilder.swift */; };
 		2844E50F272B0502005FC882 /* ArticleDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2844E50B272B0501005FC882 /* ArticleDetailInteractor.swift */; };
 		285351A4272C75FC00C630E5 /* ArticlesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285351A3272C75FC00C630E5 /* ArticlesListViewModel.swift */; };
+		28587EC327415AF2006D3A58 /* ArticlesPagingViewController+UIViewControllerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28587EC227415AF2006D3A58 /* ArticlesPagingViewController+UIViewControllerRepresentable.swift */; };
 		28D1458E273950CF00EE571A /* RootTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D1458D273950CF00EE571A /* RootTabView.swift */; };
 		28D145902739C06800EE571A /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D1458F2739C06800EE571A /* PageView.swift */; };
 /* End PBXBuildFile section */
@@ -77,6 +78,7 @@
 		2844E50A272B0501005FC882 /* ArticleDetailBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailBuilder.swift; sourceTree = "<group>"; };
 		2844E50B272B0501005FC882 /* ArticleDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailInteractor.swift; sourceTree = "<group>"; };
 		285351A3272C75FC00C630E5 /* ArticlesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesListViewModel.swift; sourceTree = "<group>"; };
+		28587EC227415AF2006D3A58 /* ArticlesPagingViewController+UIViewControllerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticlesPagingViewController+UIViewControllerRepresentable.swift"; sourceTree = "<group>"; };
 		28D1458D273950CF00EE571A /* RootTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabView.swift; sourceTree = "<group>"; };
 		28D1458F2739C06800EE571A /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -186,6 +188,7 @@
 			children = (
 				2844E48527249F63005FC882 /* ArticlesPagingRouter.swift */,
 				2844E48627249F63005FC882 /* ArticlesPagingViewController.swift */,
+				28587EC227415AF2006D3A58 /* ArticlesPagingViewController+UIViewControllerRepresentable.swift */,
 				2844E48727249F63005FC882 /* ArticlesPagingBuilder.swift */,
 				2844E48827249F63005FC882 /* ArticlesPagingInteractor.swift */,
 				28D1458F2739C06800EE571A /* PageView.swift */,
@@ -316,6 +319,7 @@
 				2844E50C272B0502005FC882 /* ArticleDetailRouter.swift in Sources */,
 				2844E47F27249EE1005FC882 /* ArticlesListBuilder.swift in Sources */,
 				2844E48C27249F63005FC882 /* ArticlesPagingInteractor.swift in Sources */,
+				28587EC327415AF2006D3A58 /* ArticlesPagingViewController+UIViewControllerRepresentable.swift in Sources */,
 				2844E50D272B0502005FC882 /* ArticleDetailViewController.swift in Sources */,
 				2844E4D427269157005FC882 /* NetWorker.swift in Sources */,
 				2844E47E27249EE1005FC882 /* ArticlesListViewController.swift in Sources */,

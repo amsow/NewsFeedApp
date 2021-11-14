@@ -8,17 +8,12 @@
 import RIBs
 
 protocol ArticlesPagingDependency: Dependency {
-    //var articles: [Article] { get }
     var articlesPageController: ArticlesPagingViewController { get set }
 }
 
 final class ArticlesPagingComponent: Component<ArticlesPagingDependency>, ArticleDetailDependency {
 
     // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
-    
-//    fileprivate var articles: [Article] {
-//        return dependency.articles
-//    }
     
     fileprivate var articlesPageController: ArticlesPagingViewController {
         return dependency.articlesPageController

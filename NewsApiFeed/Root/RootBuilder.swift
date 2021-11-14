@@ -76,13 +76,8 @@ final class RootBuilder: Builder<RootDependency>, RootBuildable {
         let articlesListController = ArticlesListViewController.make(with: viewModel)
         let articlesPageController = ArticlesPagingViewController()
         
-        let rootController = makeRootViewController(viewModel: viewModel)
-        
-        if #available(iOS 13, *) { }
-        else {
-            let childViewControllers: [ViewControllable] = [articlesListController, articlesPageController]
-            rootController.setViewControllers(childViewControllers)
-        }
+        let rootController = makeRootViewController(articlesList: articlesListController,
+                                                    articlePaging: articlesPageController)
         
         let component = RootComponent(dependency: dependency,
                                       rootViewController: rootController,
@@ -93,15 +88,18 @@ final class RootBuilder: Builder<RootDependency>, RootBuildable {
         return component
     }
     
-    private func makeRootViewController(viewModel: ViewModel) -> RootViewController {
+    private func makeRootViewController(articlesList: ArticlesListViewController,
+                                        articlePaging: ArticlesPagingViewController) -> RootViewController {
+        
+        var rootViewController: RootViewController!
         
         if #available(iOS 13, *) {
-            let articlesListView = ArticlesListView(viewModel: viewModel as! ArticlesListViewModelObject)
-            let articleDetailView = ArticleDetailView(article: Article.fake)
-            let rootViewController = RootViewController.make(withChildViews: { articlesListView }, articleDetailView: { articleDetailView })
-            return rootViewController
+            rootViewController = RootViewController.make(withChildViews: { articlesList }, articlePageView: { articlePaging })
+        } else {
+            let childViewControllers: [ViewControllable] = [articlesList, articlePaging]
+            rootViewController.setViewControllers(childViewControllers)
         }
         
-        return RootViewController()
+        return rootViewController
     }
 }

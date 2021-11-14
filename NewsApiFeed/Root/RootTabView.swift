@@ -8,26 +8,23 @@
 import SwiftUI
 
 @available(iOS 13, *)
-struct RootTabView<List: View, Detail: View>: HostableView {
+struct RootTabView<List: View, Page: View>: HostableView {
     
     let articlesListView: List
-    let articleDetailView: Detail
+    let articlesPageView: Page
     
-    init(@ViewBuilder list: () -> List, @ViewBuilder detail: () -> Detail) {
+    init(@ViewBuilder list: () -> List, @ViewBuilder page: () -> Page) {
         articlesListView = list()
-        articleDetailView = detail()
+        articlesPageView = page()
     }
     
     var body: some View {
         TabView {
             articlesListView
-                .tabItem {
-                   Text("TableView")
-                }
-            articleDetailView
-                .tabItem {
-                    Text("Article Detail")
-                }
+                .tabItem { Text("TableView") }
+            
+            articlesPageView
+                .tabItem { Text("PageView") }
         }
     }
 }
@@ -38,7 +35,7 @@ struct RootTabView_Previews: PreviewProvider {
 
         RootTabView {
             ArticlesListView(viewModel: ArticlesListViewModelObject())
-        } detail: {
+        } page: {
             ArticleDetailView(article: Article.fake)
         }
     }
