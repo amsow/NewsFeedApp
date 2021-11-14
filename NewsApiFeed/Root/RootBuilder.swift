@@ -76,7 +76,8 @@ final class RootBuilder: Builder<RootDependency>, RootBuildable {
         let articlesListController = ArticlesListViewController.make(with: viewModel)
         let articlesPageController = ArticlesPagingViewController()
         
-        let rootController = makeRootViewController(articlesList: articlesListController,
+        let rootController = makeRootViewController(viewModel: viewModel,
+                                                    articlesList: articlesListController,
                                                     articlePaging: articlesPageController)
         
         let component = RootComponent(dependency: dependency,
@@ -88,13 +89,15 @@ final class RootBuilder: Builder<RootDependency>, RootBuildable {
         return component
     }
     
-    private func makeRootViewController(articlesList: ArticlesListViewController,
+    private func makeRootViewController(viewModel: ViewModel,
+                                        articlesList: ArticlesListViewController,
                                         articlePaging: ArticlesPagingViewController) -> RootViewController {
         
         var rootViewController: RootViewController!
         
         if #available(iOS 13, *) {
-            rootViewController = RootViewController.make(withChildViews: { articlesList }, articlePageView: { articlePaging })
+            let articlesListView = ArticlesListViewController.make(with: viewModel as! ArticlesListViewModelObject)
+            rootViewController = RootViewController.make(withChildViews: { articlesListView }, articlePageView: { articlePaging })
         } else {
             let childViewControllers: [ViewControllable] = [articlesList, articlePaging]
             rootViewController.setViewControllers(childViewControllers)

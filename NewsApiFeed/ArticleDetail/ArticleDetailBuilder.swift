@@ -36,7 +36,12 @@ final class ArticleDetailBuilder: Builder<ArticleDetailDependency>, ArticleDetai
 
     func build(withListener listener: ArticleDetailListener, article: Article) -> ArticleDetailRouting {
         let _ = ArticleDetailComponent(dependency: dependency)
-        let viewController = ArticleDetailViewController()
+        let viewController: ArticleDetailViewController = {
+            if #available(iOS 13, *) {
+               return ArticleDetailViewController.make(withArticle: article)
+            }
+            return ArticleDetailViewController()
+        }()
         let interactor = ArticleDetailInteractor(presenter: viewController, article: article)
         interactor.listener = listener
         return ArticleDetailRouter(interactor: interactor, viewController: viewController)

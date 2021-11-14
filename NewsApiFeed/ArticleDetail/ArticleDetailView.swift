@@ -18,12 +18,13 @@ struct ArticleDetailView: HostableView {
                 AsyncImage(url: article.imageUrl) { image in
                     image
                         .resizable()
-                        //.scaledToFill()
+                        
                 } placeholder: {
-                    Image("news_placeholder").resizable()
+                    Image("news_placeholder")
+                        .resizable()
                 }
-                .clipped()
-                .frame(height: 300, alignment: .center)
+                .frame(width: nil, height: 300, alignment: .center)
+                
             } else {
                 Image(article.imageUrl!.absoluteString).resizable() //"news_placeholder"
                     .frame(height: 300, alignment: .center)
@@ -31,11 +32,11 @@ struct ArticleDetailView: HostableView {
             }
         
             VStack(alignment: .leading, spacing: 5) {
-                Text(article.title!)
+                Text(article.title ?? "")
                     .font(.title)
                     .fontWeight(.medium)
                     
-                Text(article.description!)
+                Text(article.description ?? "")
                     .font(.system(size: 22))
                     
             }

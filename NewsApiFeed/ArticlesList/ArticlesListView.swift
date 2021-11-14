@@ -7,6 +7,7 @@
 
 
 import SwiftUI
+import UIKit
 import RIBs
 
 @available(iOS 13.0.0, *)
@@ -26,8 +27,17 @@ struct ArticlesListView: HostableView {
             .navigationBarTitle(Text("News"))
         }
     }
-        
 }
+
+
+
+
+
+
+
+
+
+
 
 @available(iOS 13.0.0, *)
 struct ArticleItemView: View {

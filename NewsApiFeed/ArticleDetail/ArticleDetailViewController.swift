@@ -66,6 +66,7 @@ final class ArticleDetailViewController: UIViewController, ArticleDetailPresenta
         let hostableArticleDetailController = articleDetailView.viewController
         hostArticleDetailVC.addChild(hostableArticleDetailController)
         hostArticleDetailVC.view.addSubview(hostableArticleDetailController.view)
+        hostableArticleDetailController.view.frame = hostArticleDetailVC.view.frame
         hostableArticleDetailController.didMove(toParent: hostArticleDetailVC)
         
         return hostArticleDetailVC
@@ -74,11 +75,11 @@ final class ArticleDetailViewController: UIViewController, ArticleDetailPresenta
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-       // if #available(iOS 13, *) {
+        if #available(iOS 13, *) {
             // Stuff for iOS 13 and later target
-      //  } else {
+        } else {
             setupView()
-      //  }
+        }
     }
     
     // MARK: - Setup View

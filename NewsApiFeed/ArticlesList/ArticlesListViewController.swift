@@ -20,9 +20,9 @@ protocol ArticlesListPresentableListener: AnyObject {
 }
 
 final class ArticlesListViewController: UIViewController, ArticlesListPresentable, ArticlesListViewControllable {
-
+    
     private(set) var viewModel: ArticlesListViewModel!
-
+    
     weak var listener: ArticlesListPresentableListener?
     
     private lazy var tableView: UITableView = {
@@ -59,7 +59,7 @@ final class ArticlesListViewController: UIViewController, ArticlesListPresentabl
         fatalError("init(coder:) has not been implemented")
     }
     
-    // Make this static constructor for our viewController based on the ViewModel type
+    /// Use this method factory for version under iOS 13
     static func make<ListViewModel>(with viewModel: ListViewModel) -> ArticlesListViewController {
         let vc = ArticlesListViewController()
         
@@ -69,11 +69,26 @@ final class ArticlesListViewController: UIViewController, ArticlesListPresentabl
             vc.addChild(hostVC)
             vc.view.addSubview(hostVC.view)
             hostVC.view.frame = vc.view.frame
-            hostVC.didMove(toParent: vc)
+            //hostVC.didMove(toParent: vc)
             return vc
         }
         vc.viewModel = viewModel as? ArticlesListViewModel
         return vc
+    }
+    
+    
+    static func make(with viewModel: ArticlesListViewModel) -> ArticlesListViewController {
+        let vc = ArticlesListViewController()
+         vc.viewModel = viewModel
+        return vc
+    }
+    
+    /// Use this method factory for iOS 13 and later target
+    @available(iOS 13, *)
+    static func make(with viewModel: ArticlesListViewModelObject) -> ArticlesListView {
+        
+        let articlesListView = ArticlesListView(viewModel: viewModel)
+        return articlesListView
     }
     
     // MARK: - VC Lifecycle
