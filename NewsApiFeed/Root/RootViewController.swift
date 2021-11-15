@@ -28,6 +28,7 @@ final class RootViewController: UITabBarController, RootPresentable, RootViewCon
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// Use this method factory for iOS 13 and later
     @available(iOS 13, *)
     static func make<ListViewContent: View, PageViewContent: View>(withChildViews articleListView: () -> ListViewContent,
                                                                      articlePageView: () -> PageViewContent) -> RootViewController {
@@ -48,7 +49,9 @@ final class RootViewController: UITabBarController, RootPresentable, RootViewCon
     
     // MARK: - RootViewControllable
     func setViewControllers(_ viewControllers: [ViewControllable]) {
-        self.viewControllers = viewControllers.map { $0.uiviewController }
+        self.viewControllers = viewControllers.map {
+            UINavigationController(rootViewController: $0.uiviewController)
+        }
     }
 }
 

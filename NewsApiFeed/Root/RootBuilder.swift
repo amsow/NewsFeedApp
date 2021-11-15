@@ -100,6 +100,7 @@ final class RootBuilder: Builder<RootDependency>, RootBuildable {
             rootViewController = RootViewController.make(withChildViews: { articlesListView }, articlePageView: { articlePaging })
         } else {
             let childViewControllers: [ViewControllable] = [articlesList, articlePaging]
+            rootViewController = RootViewController()
             rootViewController.setViewControllers(childViewControllers)
         }
         

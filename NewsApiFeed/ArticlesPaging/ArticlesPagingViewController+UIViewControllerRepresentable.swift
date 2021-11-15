@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+//https://developer.apple.com/tutorials/swiftui/interfacing-with-uikit
+
 @available(iOS 13, *)
 extension ArticlesPagingViewController: UIViewControllerRepresentable {
     
