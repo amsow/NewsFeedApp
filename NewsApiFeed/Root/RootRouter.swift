@@ -20,17 +20,17 @@ protocol RootViewControllable: ViewControllable {
 }
 
 final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, RootRouting {
-
+    
     // TODO: Constructor inject child builder protocols to allow building children.
     private let articlesListBuilder: ArticlesListBuildable
     private let articlesPagingBuilder: ArticlesPagingBuildable
     
     private var articlesPagingRouter: ArticlesPagingRouting?
     
-        init(interactor: RootInteractable,
-                  viewController: RootViewControllable,
-                  articlesListBuilder: ArticlesListBuildable,
-                  articlesPagingBuilder: ArticlesPagingBuildable) {
+    init(interactor: RootInteractable,
+         viewController: RootViewControllable,
+         articlesListBuilder: ArticlesListBuildable,
+         articlesPagingBuilder: ArticlesPagingBuildable) {
         self.articlesListBuilder = articlesListBuilder
         self.articlesPagingBuilder = articlesPagingBuilder
         super.init(interactor: interactor, viewController: viewController)
@@ -40,6 +40,7 @@ final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, Ro
     override func didLoad() {
         super.didLoad()
         attachArticlesList()
+        attachArticlesPaging(with: [])
     }
     
     // MARK: - RootRouting
@@ -47,6 +48,7 @@ final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, Ro
     func attachArticlesPaging(with articles: [Article]) {
         print("****** Articles count ==> \(articles.count)")
         let router = articlesPagingBuilder.build(withListener: interactor, articles: articles)
+        articlesPagingRouter = router
         attachChild(router)
     }
     
@@ -55,11 +57,4 @@ final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, Ro
         let articlesListRouter = articlesListBuilder.build(withListener: interactor)
         attachChild(articlesListRouter)
     }
-    
-    private func detachArticlesPaging() {
-        if let articlesPagingRouter = articlesPagingRouter {
-            detachChild(articlesPagingRouter)
-        }
-    }
-    
 }
